@@ -1,0 +1,1 @@
+azure group create "hypnotizingbehavior" "West US" -f msa.json -d "hypnotizingdeploy" -e msaparams.json
