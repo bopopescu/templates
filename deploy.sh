@@ -1,1 +1,1 @@
-azure group create "nodi" "West US" -f msa.json -d "nodidep" -e msaparams.json
+azure group create "nodi" "West US" -f master.json -d "nodidep" -e masterparams.json
