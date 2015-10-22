@@ -9,7 +9,8 @@
     "subnetName": "nodisubnet",
     "dnsNameForPublicIP": "nodi",
     "addressPrefix": "10.0.0.0/16",
-    "subnetPrefix": "10.0.0.0/24"
+    "subnetPrefix": "10.0.0.0/24",
+    "baseTemplateUri": "https://raw.githubusercontent.com/gatneil/templates/master/worker.json"
     },
   "resources": [
     {
@@ -43,6 +44,51 @@
             }
           }
         ]
+      }
+    },
+    {
+      "name": "workerDep",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2015-01-01",
+      "dependsOn": [
+        "[concat('Microsoft.Network/publicIPAddresses/', variables('publicIPAddressName'))]",
+        "[concat('Microsoft.Network/virtualNetworks/', variables('virtualNetworkName'))]"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[variables('baseTemplateUri')]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+    	  "storageAccountName": {
+      	    "value": "nodisa"
+    	  },
+    	  "adminUsername": {
+      	    "value": "negat"
+    	  },
+    	  "adminPassword": {
+      	    "value": "P4$$w0rd"
+    	  },
+    	  "vmSize": {
+      	    "value": "Standard_D2"
+    	  },
+    	  "sizeOfEachDataDiskInGB": {
+      	    "value": "100"
+    	  },
+    	  "virtualNetworkName": {
+      	    "value": "nodivnet"
+    	  },
+    	  "subnetName": {
+      	    "value": "nodisubnet"
+    	  },
+    	  "publicIPAddressName": {
+      	    "value": "nodipip"
+    	  },
+    	  "location": {
+      	    "value": "West US"
+    	  }
+        }
       }
     }
   ]
