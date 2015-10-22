@@ -11,9 +11,6 @@
     "adminPassword": {
       "value": "P4$$w0rd"
     },
-    "dnsNameForPublicIP": {
-      "value": "nodi"
-    },
     "vmSize": {
       "value": "Standard_D2"
     },
@@ -28,6 +25,9 @@
     },
     "publicIPAddressName": {
       "value": "nodipip"
+    },
+    "location": {
+      "value": "West US"
     }
   }
 }
