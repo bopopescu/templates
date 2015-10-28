@@ -32,16 +32,10 @@
         "description": "Size of each data disk in GB"
       }
     },
-    "virtualNetworkName": {
+    "nicName": {
       "type": "string",
       "metadata": {
-        "descripiton": "Name of pre-created VNet"
-      }
-    },
-    "subnetName": {
-      "type": "string",
-      "metadata": {
-        "descripiton": "Name of pre-created Subnet within your VNet"
+        "descripiton": "Name of pre-created nic"
       }
     },
     "publicIPAddressName": {
@@ -64,9 +58,6 @@
     "imageSKU": "14.04.2-LTS",
     "imageVersion": "latest",
     "vmName": "myVM",
-    "vnetID": "[resourceId('Microsoft.Network/virtualNetworks',parameters('virtualNetworkName'))]",
-    "nicName": "myNIC",
-    "subnet1Ref": "[concat(variables('vnetID'),'/subnets/',parameters('subnetName'))]",
     "dataDisk1VhdName": "[concat('http://',parameters('storageAccountName'),'.blob.core.windows.net/',variables('vmStorageAccountContainerName'),'/',variables('vmName'),'dataDisk1.vhd')]",
     "dataDisk2VhdName": "[concat('http://',parameters('storageAccountName'),'.blob.core.windows.net/',variables('vmStorageAccountContainerName'),'/',variables('vmName'),'dataDisk2.vhd')]",
     "dataDisk3VhdName": "[concat('http://',parameters('storageAccountName'),'.blob.core.windows.net/',variables('vmStorageAccountContainerName'),'/',variables('vmName'),'dataDisk3.vhd')]",
@@ -74,35 +65,10 @@
   },
   "resources": [
     {
-      "apiVersion": "2015-05-01-preview",
-      "type": "Microsoft.Network/networkInterfaces",
-      "name": "[variables('nicName')]",
-      "location": "[parameters('location')]",
-      "properties": {
-        "ipConfigurations": [
-          {
-            "name": "ipconfig1",
-            "properties": {
-              "privateIPAllocationMethod": "Dynamic",
-              "publicIPAddress": {
-                "id": "[resourceId('Microsoft.Network/publicIPAddresses',parameters('publicIPAddressName'))]"
-              },
-              "subnet": {
-                "id": "[variables('subnet1Ref')]"
-              }
-            }
-          }
-        ]
-      }
-    },
-    {
       "apiVersion": "2015-06-15",
       "type": "Microsoft.Compute/virtualMachines",
       "name": "[variables('vmName')]",
       "location": "[parameters('location')]",
-      "dependsOn": [
-        "[concat('Microsoft.Network/networkInterfaces/', variables('nicName'))]"
-      ],
       "properties": {
         "hardwareProfile": {
           "vmSize": "[parameters('vmSize')]"
@@ -169,7 +135,7 @@
         "networkProfile": {
           "networkInterfaces": [
             {
-              "id": "[resourceId('Microsoft.Network/networkInterfaces',variables('nicName'))]"
+              "id": "[resourceId('Microsoft.Network/networkInterfaces',parameters('nicName'))]"
             }
           ]
         },
