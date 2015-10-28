@@ -1,18 +1,29 @@
 {
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
+  "parameters": {
+    "vmCount": {
+      "type": "int"
+    },
+    "numDisksPerVM": {
+      "type": "int"
+    }
+  },
   "variables": {
     "location": "West US",
+    "vmName": "myVM",
     "nicName": "myNIC",
     "storageAccountType": "Standard_LRS",
     "storageAccountName": "nodisa",
+    "saCountMap": [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5],
+    "saMap": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4],
+    "saCount": "[variables('saCountMap')[parameters('vmCount')]]",
     "publicIPAddressType": "Dynamic",
     "publicIPAddressName": "nodipip",
     "virtualNetworkName": "nodivnet",
     "vnetID": "[resourceId('Microsoft.Network/virtualNetworks',variables('virtualNetworkName'))]",
     "subnetName": "nodisubnet",
     "subnet1Ref": "[concat(variables('vnetID'),'/subnets/',variables('subnetName'))]",
-    "dnsNameForPublicIP": "nodi",
     "addressPrefix": "10.0.0.0/16",
     "subnetPrefix": "10.0.0.0/24",
     "baseTemplateUri": "https://raw.githubusercontent.com/gatneil/templates/master/worker.json"
@@ -20,7 +31,11 @@
   "resources": [
     {
       "type": "Microsoft.Storage/storageAccounts",
-      "name": "[variables('storageAccountName')]",
+      "name": "[concat(copyIndex(), variables('storageAccountName'))]",
+      "copy": {
+        "name": "saLoop",
+        "count": "[variables('saCount')]"
+      },
       "apiVersion": "2015-05-01-preview",
       "location": "[variables('location')]",
       "properties": {
@@ -30,22 +45,27 @@
     {
       "apiVersion": "2015-05-01-preview",
       "type": "Microsoft.Network/publicIPAddresses",
-      "name": "[variables('publicIPAddressName')]",
+      "name": "[concat(variables('publicIPAddressName'), copyIndex())]",
+      "copy": {
+        "name": "pipLoop",
+        "count": "[parameters('vmCount')]"
+      },
       "location": "[variables('location')]",
       "properties": {
-        "publicIPAllocationMethod": "[variables('publicIPAddressType')]",
-        "dnsSettings": {
-          "domainNameLabel": "[variables('dnsNameForPublicIP')]"
-        }
+        "publicIPAllocationMethod": "[variables('publicIPAddressType')]"
       }
     },
     {
       "apiVersion": "2015-05-01-preview",
       "type": "Microsoft.Network/networkInterfaces",
-      "name": "[variables('nicName')]",
+      "name": "[concat(variables('nicName'), copyIndex())]",
+      "copy": {
+        "name": "nicLoop",
+        "count": "[parameters('vmCount')]"
+      },
       "location": "[variables('location')]",
       "dependsOn": [
-        "[concat('Microsoft.Network/publicIPAddresses/', variables('publicIPAddressName'))]",
+        "[concat('Microsoft.Network/publicIPAddresses/', variables('publicIPAddressName'), copyIndex())]",
         "[concat('Microsoft.Network/virtualNetworks/', variables('virtualNetworkName'))]"
       ],
       "properties": {
@@ -55,7 +75,7 @@
             "properties": {
               "privateIPAllocationMethod": "Dynamic",
               "publicIPAddress": {
-                "id": "[resourceId('Microsoft.Network/publicIPAddresses',variables('publicIPAddressName'))]"
+                "id": "[resourceId('Microsoft.Network/publicIPAddresses', concat(variables('publicIPAddressName'), copyIndex()))]"
               },
               "subnet": {
                 "id": "[variables('subnet1Ref')]"
@@ -87,12 +107,16 @@
       }
     },
     {
-      "name": "workerDep",
+      "name": "[concat('workerDep', copyIndex())]",
       "type": "Microsoft.Resources/deployments",
+      "copy": {
+        "name": "depLoop",
+        "count": "[parameters('vmCount')]"
+      },
       "apiVersion": "2015-01-01",
       "dependsOn": [
-        "[concat('Microsoft.Network/networkInterfaces/', variables('nicName'))]",
-        "[concat('Microsoft.Storage/storageAccounts/', variables('storageAccountName'))]"
+        "[concat('Microsoft.Network/networkInterfaces/', variables('nicName'), copyIndex())]",
+        "[concat('Microsoft.Storage/storageAccounts/', variables('saMap')[copyIndex()], variables('storageAccountName'))]"
       ],
       "properties": {
         "mode": "Incremental",
@@ -101,8 +125,14 @@
           "contentVersion": "1.0.0.0"
         },
         "parameters": {
+    	  "vmName": {
+      	    "value": "[concat(variables('vmName'), copyIndex())]"
+	  },
+    	  "numDisks": {
+      	    "value": "[parameters('numDisksPerVM')]"
+	  },
     	  "storageAccountName": {
-      	    "value": "[variables('storageAccountName')]"
+      	    "value": "[concat(variables('saMap')[copyIndex()], variables('storageAccountName'))]"
     	  },
     	  "adminUsername": {
       	    "value": "negat"
@@ -117,10 +147,10 @@
       	    "value": "100"
     	  },
 	  "nicName": {
-	    "value": "[variables('nicName')]"
+	    "value": "[concat(variables('nicName'), copyIndex())]"
 	  },
     	  "publicIPAddressName": {
-      	    "value": "[variables('publicIPAddressName')]"
+      	    "value": "[concat(variables('publicIPAddressName'), copyIndex())]"
     	  },
     	  "location": {
       	    "value": "[variables('location')]"

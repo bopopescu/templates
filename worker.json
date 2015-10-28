@@ -2,6 +2,18 @@
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
+    "vmName": {  
+      "type": "string",
+      "metadata": {
+        "description": "This is the name of your new VM"
+      }
+    },
+    "numDisks": {  
+      "type": "string",
+      "metadata": {
+        "description": "Number of disks for your new VM"
+      }
+    },
     "storageAccountName": {
       "type": "string",
       "metadata": {
@@ -57,24 +69,23 @@
     "imageOffer": "UbuntuServer",
     "imageSKU": "14.04.2-LTS",
     "imageVersion": "latest",
-    "vmName": "myVM",
-    "dataDisk1VhdName": "[concat('http://',parameters('storageAccountName'),'.blob.core.windows.net/',variables('vmStorageAccountContainerName'),'/',variables('vmName'),'dataDisk1.vhd')]",
-    "dataDisk2VhdName": "[concat('http://',parameters('storageAccountName'),'.blob.core.windows.net/',variables('vmStorageAccountContainerName'),'/',variables('vmName'),'dataDisk2.vhd')]",
-    "dataDisk3VhdName": "[concat('http://',parameters('storageAccountName'),'.blob.core.windows.net/',variables('vmStorageAccountContainerName'),'/',variables('vmName'),'dataDisk3.vhd')]",
-    "dataDisk4VhdName": "[concat('http://',parameters('storageAccountName'),'.blob.core.windows.net/',variables('vmStorageAccountContainerName'),'/',variables('vmName'),'dataDisk4.vhd')]"
+    "dataDisk1VhdName": "[concat('http://',parameters('storageAccountName'),'.blob.core.windows.net/',variables('vmStorageAccountContainerName'),'/',parameters('vmName'),'dataDisk1.vhd')]",
+    "dataDisk2VhdName": "[concat('http://',parameters('storageAccountName'),'.blob.core.windows.net/',variables('vmStorageAccountContainerName'),'/',parameters('vmName'),'dataDisk2.vhd')]",
+    "dataDisk3VhdName": "[concat('http://',parameters('storageAccountName'),'.blob.core.windows.net/',variables('vmStorageAccountContainerName'),'/',parameters('vmName'),'dataDisk3.vhd')]",
+    "dataDisk4VhdName": "[concat('http://',parameters('storageAccountName'),'.blob.core.windows.net/',variables('vmStorageAccountContainerName'),'/',parameters('vmName'),'dataDisk4.vhd')]"
   },
   "resources": [
     {
       "apiVersion": "2015-06-15",
       "type": "Microsoft.Compute/virtualMachines",
-      "name": "[variables('vmName')]",
+      "name": "[parameters('vmName')]",
       "location": "[parameters('location')]",
       "properties": {
         "hardwareProfile": {
           "vmSize": "[parameters('vmSize')]"
         },
         "osProfile": {
-          "computername": "[variables('vmName')]",
+          "computername": "[parameters('vmName')]",
           "adminUsername": "[parameters('adminUsername')]",
           "adminPassword": "[parameters('adminPassword')]"
         },
