@@ -9,7 +9,7 @@
       }
     },
     "numDisks": {  
-      "type": "string",
+      "type": "int",
       "metadata": {
         "description": "Number of disks for your new VM"
       }
