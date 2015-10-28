@@ -98,7 +98,7 @@
           },
           "dataDisks": [
             {
-              "name": "datadisk1",
+              "name": "[concat(parameters('vmName'), datadisk1)]",
               "diskSizeGB": "[parameters('sizeOfEachDataDiskInGB')]",
               "lun": 0,
               "vhd": {
@@ -107,7 +107,7 @@
               "createOption": "Empty"
             },
             {
-              "name": "datadisk2",
+              "name": "[concat(parameters('vmName'), datadisk2)]",
               "diskSizeGB": "[parameters('sizeOfEachDataDiskInGB')]",
               "lun": 1,
               "vhd": {
@@ -116,7 +116,7 @@
               "createOption": "Empty"
             },
             {
-              "name": "datadisk3",
+              "name": "[concat(parameters('vmName'), datadisk3)]",
               "diskSizeGB": "[parameters('sizeOfEachDataDiskInGB')]",
               "lun": 2,
               "vhd": {
@@ -125,7 +125,7 @@
               "createOption": "Empty"
             },
             {
-              "name": "datadisk4",
+              "name": "[concat(parameters('vmName'), datadisk4)]",
               "diskSizeGB": "[parameters('sizeOfEachDataDiskInGB')]",
               "lun": 3,
               "vhd": {
@@ -135,9 +135,9 @@
             }
           ],
           "osDisk": {
-            "name": "osdisk1",
+            "name": "[concat(parameters('vmName'), osdisk1)]",
             "vhd": {
-              "uri": "[concat('http://',parameters('storageAccountName'),'.blob.core.windows.net/',variables('vmStorageAccountContainerName'),'/','osdisk1.vhd')]"
+              "uri": "[concat('http://',parameters('storageAccountName'),'.blob.core.windows.net/',variables('vmStorageAccountContainerName'),'/', parameters('vmName'), 'osdisk1.vhd')]"
             },
             "caching": "ReadWrite",
             "createOption": "FromImage"
