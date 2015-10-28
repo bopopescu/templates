@@ -12,6 +12,8 @@
   "variables": {
     "location": "West US",
     "vmName": "myVM",
+    "adminUsername": "negat",
+    "adminPassword": "P4$$w0rd",
     "nicName": "myNIC",
     "storageAccountType": "Standard_LRS",
     "storageAccountName": "nodisa",
@@ -88,8 +90,8 @@
         },
         "osProfile": {
           "computername": "[variables('vmName')]",
-          "adminUsername": "[parameters('adminUsername')]",
-          "adminPassword": "[parameters('adminPassword')]"
+          "adminUsername": "[variables('adminUsername')]",
+          "adminPassword": "[variables('adminPassword')]"
         },
         "storageProfile": {
           "imageReference": {
@@ -211,10 +213,10 @@
       	    "value": "[concat(mod(copyIndex(), variables('saCount')), variables('storageAccountName'))]"
     	  },
     	  "adminUsername": {
-      	    "value": "negat"
+      	    "value": "[variables('adminUsername')]"
     	  },
     	  "adminPassword": {
-      	    "value": "P4$$w0rd"
+      	    "value": "[variables('adminPassword')]"
     	  },
     	  "vmSize": {
       	    "value": "Standard_D2"
