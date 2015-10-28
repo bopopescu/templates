@@ -138,9 +138,9 @@
     {
       "apiVersion": "2015-05-01-preview",
       "type": "Microsoft.Network/networkInterfaces",
-      "name": "[concat(variables('publicIPAddressName'), copyIndex())]",
+      "name": "[concat(variables('nicName'), copyIndex())]",
       "copy": {
-        "name": "pipLoop",
+        "name": "nicLoop",
         "count": "[parameters('vmCount')]"
       },
       "location": "[variables('location')]",
