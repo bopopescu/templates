@@ -50,12 +50,6 @@
         "descripiton": "Name of pre-created nic"
       }
     },
-    "publicIPAddressName": {
-      "type": "string",
-      "metadata": {
-        "descripiton": "Name of pre-created IP Address"
-      }
-    },
     "location": {
       "type": "string",
       "metadata": {
