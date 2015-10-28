@@ -15,9 +15,8 @@
     "nicName": "myNIC",
     "storageAccountType": "Standard_LRS",
     "storageAccountName": "nodisa",
-    "saCountMap": [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5],
-    "saMap": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4],
-    "saCount": "[variables('saCountMap')[parameters('vmCount')]]",
+    "vmsPerSA": 20,
+    "saCount": "[add(div(parameters('vmCount'), variables('vmsPerSA')),1)]",
     "publicIPAddressType": "Dynamic",
     "publicIPAddressName": "nodipip",
     "virtualNetworkName": "nodivnet",
@@ -116,7 +115,7 @@
       "apiVersion": "2015-01-01",
       "dependsOn": [
         "[concat('Microsoft.Network/networkInterfaces/', variables('nicName'), copyIndex())]",
-        "[concat('Microsoft.Storage/storageAccounts/', variables('saMap')[copyIndex()], variables('storageAccountName'))]"
+        "[concat('Microsoft.Storage/storageAccounts/', mod(copyIndex(), variables('saCount')), variables('storageAccountName'))]"
       ],
       "properties": {
         "mode": "Incremental",
@@ -132,7 +131,7 @@
       	    "value": "[parameters('numDisksPerVM')]"
 	  },
     	  "storageAccountName": {
-      	    "value": "[concat(variables('saMap')[copyIndex()], variables('storageAccountName'))]"
+      	    "value": "[concat(mod(copyIndex(), variables('saCount')), variables('storageAccountName'))]"
     	  },
     	  "adminUsername": {
       	    "value": "negat"
