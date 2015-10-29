@@ -7,28 +7,31 @@
     },
     "numDisksPerVM": {
       "type": "int"
+    },
+    "uniqueNamingPrefix": {
+      "type": "string"
     }
   },
   "variables": {
     "location": "West US",
-    "vmName": "myVM",
-    "adminUsername": "negat",
+    "vmName": "[concat(variables('uniqueNamingPrefix'), 'vm')]",
+    "adminUsername": "hdp",
     "adminPassword": "P4$$w0rd",
-    "nicName": "myNIC",
+    "nicName": "[concat(variables('uniqueNamingPrefix'), 'nic')]",
     "storageAccountType": "Standard_LRS",
-    "storageAccountName": "nodisa",
+    "storageAccountName": "[concat(variables('uniqueNamingPrefix'), 'sa')]",
     "vmsPerSA": 20,
     "saCount": "[add(div(parameters('vmCount'), variables('vmsPerSA')),1)]",
     "publicIPAddressType": "Dynamic",
-    "publicIPAddressName": "nodipip",
-    "virtualNetworkName": "nodivnet",
+    "publicIPAddressName": "[concat(variables('uniqueNamingPrefix'), 'pip')]",
+    "virtualNetworkName": "[concat(variables('uniqueNamingPrefix'), 'vnet')]",
     "vnetID": "[resourceId('Microsoft.Network/virtualNetworks',variables('virtualNetworkName'))]",
-    "subnetName": "nodisubnet",
+    "subnetName": "[concat(variables('uniqueNamingPrefix'), 'subnet')]",
     "subnet1Ref": "[concat(variables('vnetID'),'/subnets/',variables('subnetName'))]",
     "addressPrefix": "10.0.0.0/16",
     "subnetPrefix": "10.0.0.0/24",
     "baseTemplateUri": "https://raw.githubusercontent.com/gatneil/templates/master/worker.json"
-    },
+  },
   "resources": [
     {
       "type": "Microsoft.Storage/storageAccounts",
