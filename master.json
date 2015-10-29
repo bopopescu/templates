@@ -128,7 +128,7 @@
     },
     {
       "type": "Microsoft.Storage/storageAccounts",
-      "name": "[concat(copyIndex(), variables('storageAccountName'))]",
+      "name": "[concat(variables('storageAccountName'), copyIndex())]",
       "copy": {
         "name": "saLoop",
         "count": "[variables('saCount')]"
@@ -196,7 +196,7 @@
       "apiVersion": "2015-01-01",
       "dependsOn": [
         "[concat('Microsoft.Network/networkInterfaces/', variables('nicName'), copyIndex())]",
-        "[concat('Microsoft.Storage/storageAccounts/', mod(copyIndex(), variables('saCount')), variables('storageAccountName'))]"
+        "[concat('Microsoft.Storage/storageAccounts/', variables('storageAccountName'), mod(copyIndex(), variables('saCount')))]"
       ],
       "properties": {
         "mode": "Incremental",
@@ -212,7 +212,7 @@
       	    "value": "[parameters('numDisksPerVM')]"
 	  },
     	  "storageAccountName": {
-      	    "value": "[concat(mod(copyIndex(), variables('saCount')), variables('storageAccountName'))]"
+      	    "value": "[concat(variables('storageAccountName'), mod(copyIndex(), variables('saCount')))]"
     	  },
     	  "adminUsername": {
       	    "value": "[variables('adminUsername')]"
