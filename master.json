@@ -17,7 +17,6 @@
     "nicName": "myNIC",
     "storageAccountType": "Standard_LRS",
     "storageAccountName": "nodisa",
-    "jumpBoxSAName": "nodijumpsa",
     "vmsPerSA": 20,
     "saCount": "[add(div(parameters('vmCount'), variables('vmsPerSA')),1)]",
     "publicIPAddressType": "Dynamic",
@@ -33,7 +32,7 @@
   "resources": [
     {
       "type": "Microsoft.Storage/storageAccounts",
-      "name": "[variables('jumpBoxSAName')]",
+      "name": "[variables('storageAccountName')]",
       "apiVersion": "2015-05-01-preview",
       "location": "[variables('location')]",
       "properties": {
@@ -81,7 +80,7 @@
       "name": "jumpBox",
       "location": "[variables('location')]",
       "dependsOn": [
-        "[concat('Microsoft.Storage/storageAccounts/', variables('jumpBoxSAName'))]",
+        "[concat('Microsoft.Storage/storageAccounts/', variables('storageAccountName'))]",
         "[concat('Microsoft.Network/networkInterfaces/', variables('nicName'))]"
       ],
       "properties": {
