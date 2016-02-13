@@ -31,4 +31,4 @@ echo  "}" >> template/web_node.parameters.json
 echo "}" >> template/web_node.parameters.json
 
 
-azure group create -n nsgtrrg -d nsgtrdep -l "West US" -f template/web_node.json -e template/web_node.parameters.json
+azure group create -n $1rg -d $1dep -l "West US" -f template/web_node.json -e template/web_node.parameters.json

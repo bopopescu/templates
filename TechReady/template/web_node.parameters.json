@@ -12,13 +12,13 @@
 "value": "azure"
 },
 "newStorageAccountName": {
-"value": ""
+"value": "nsghihi"
 },
 "vmSize": {
 "value": "Standard_D4"
 },
 "dnsNameForPublicIP": {
-"value": ""
+"value": "nsghihi"
 }
 }
 }
