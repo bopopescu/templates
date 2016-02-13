@@ -121,6 +121,38 @@
   },
   "resources":[
     {
+      "name": "web",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2015-01-01",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "https://raw.githubusercontent.com/gatneil/templates/master/TechReady/template/web_node.json",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+			    "location": {
+			      "value" : "[parameters('resourceLocation')]"
+			    },
+			    "username": {
+			      "value" : "[parameters('adminUsername')]"
+			    },
+			    "password" : {
+			      "value" : "[parameters('adminPassword')]"
+			    },
+			    "newStorageAccountName" : {
+			      "value" : "[variables('newStorageAccountSuffix')]"
+			    },
+			    "vmSize" : {
+			    	"value" : "Standard_D4"
+			    },
+			    "dnsNameForPublicIP" : {
+			    	"value" : "[parameters('vmssName')]"
+			    }
+        }
+      }
+    },
+    {
       "type":"Microsoft.Storage/storageAccounts",
       "name":"[concat(variables('uniqueStringArray')[copyIndex()], variables('newStorageAccountSuffix'))]",
       "location":"[parameters('resourceLocation')]",
@@ -224,7 +256,8 @@
       "apiVersion":"[variables('apiVersion')]",
       "dependsOn":[
         "storageLoop",
-        "[concat('Microsoft.Network/loadBalancers/', variables('loadBalancerName'))]"
+        "[concat('Microsoft.Network/loadBalancers/', variables('loadBalancerName'))]",
+        "[concat('Microsoft.Network/deployments', 'web')]"
       ],
       "sku":{
         "name":"[parameters('vmSku')]",
@@ -301,7 +334,7 @@
                     ]
                   },
 		  "protectedSettings":{
-		      "commandToExecute":"[concat('sh vmss_node.sh ', parameters('adminPassword'), ' ', (*** TODO PIP OF WEB/DB SERVER ***)]"
+		      "commandToExecute":"[concat('sh vmss_node.sh ', parameters('adminPassword'), ' ', reference('web').outputs.fqdn.value)]"
                   }
 		}
               },
