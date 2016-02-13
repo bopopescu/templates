@@ -1,1 +1,0 @@
-azure group create "nodi" "West US" -f master.json -d "nodidep" -e masterparams.json

@@ -9,16 +9,16 @@
 "value": "ubuntu"
 },
 "password": {
-"value": "azure"
+"value": "Passw0rd"
 },
 "newStorageAccountName": {
-"value": "nsghihi"
+"value": "nsghi"
 },
 "vmSize": {
 "value": "Standard_D4"
 },
 "dnsNameForPublicIP": {
-"value": "nsghihi"
+"value": "nsghi"
 }
 }
 }
