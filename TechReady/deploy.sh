@@ -16,7 +16,7 @@ echo    "\"username\": {" >> template/web_node.parameters.json
 echo      "\"value\": \"ubuntu\"" >> template/web_node.parameters.json
 echo    "}," >> template/web_node.parameters.json
 echo    "\"password\": {" >> template/web_node.parameters.json
-echo      "\"value\": \"azure\"" >> template/web_node.parameters.json
+echo      "\"value\": \"Passw0rd\"" >> template/web_node.parameters.json
 echo    "}," >> template/web_node.parameters.json
 echo    "\"newStorageAccountName\": {" >> template/web_node.parameters.json
 echo      "\"value\": \"$1\"" >> template/web_node.parameters.json
