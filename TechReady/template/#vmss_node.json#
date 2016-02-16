@@ -387,7 +387,7 @@
                   "metricName":"\\Processor\\PercentProcessorTime",
                   "metricNamespace":"",
                   "metricResourceUri":"[concat('/subscriptions/',subscription().subscriptionId, '/resourceGroups/',  resourceGroup().name, '/providers/Microsoft.Compute/virtualMachineScaleSets/', parameters('vmSSName'))]",
-                  "timeGrain":"PT1M",
+                  "timeGrain":"PT5M",
                   "statistic":"Average",
                   "timeWindow":"PT5M",
                   "timeAggregation":"Average",
@@ -398,7 +398,7 @@
                   "direction":"Increase",
                   "type":"ChangeCount",
                   "value":"14",
-                  "cooldown":"PT1M"
+                  "cooldown":"PT5M"
                 }
               },
               {
@@ -406,7 +406,7 @@
                   "metricName":"\\Processor\\PercentProcessorTime",
                   "metricNamespace":"",
                   "metricResourceUri":"[concat('/subscriptions/',subscription().subscriptionId, '/resourceGroups/',  resourceGroup().name, '/providers/Microsoft.Compute/virtualMachineScaleSets/', parameters('vmSSName'))]",
-                  "timeGrain":"PT1M",
+                  "timeGrain":"PT5M",
                   "statistic":"Average",
                   "timeWindow":"PT5M",
                   "timeAggregation":"Average",
@@ -417,7 +417,7 @@
                   "direction":"Decrease",
                   "type":"ChangeCount",
                   "value":"14",
-                  "cooldown":"PT1M"
+                  "cooldown":"PT5M"
                 }
               }
             ]
