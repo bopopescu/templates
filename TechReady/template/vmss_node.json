@@ -141,13 +141,13 @@
 			      "value" : "[parameters('adminPassword')]"
 			    },
 			    "newStorageAccountName" : {
-			      "value" : "[variables('newStorageAccountSuffix')]"
+			      "value" : "[concat('web', variables('newStorageAccountSuffix'))]"
 			    },
 			    "vmSize" : {
 			    	"value" : "Standard_D4"
 			    },
 			    "dnsNameForPublicIP" : {
-			    	"value" : "[parameters('vmssName')]"
+			    	"value" : "[concat('web', parameters('vmssName'))]"
 			    }
         }
       }
