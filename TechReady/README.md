@@ -1,7 +1,7 @@
 SUMMARY
 =======
 
-This is a demo of VM Scale Sets and autoscale. It sets up a MySQL database, an NGINX web front end, and an Ubuntu compute back end. The compute back end starts with a single VM but scales up to roughly 15 VMs once the first one starts doing work (the autoscale rules is based on CPU). Each compute node is given an image (Mona Lisa) and a set of 10,000 small images (cifar 10 group 1). It queries the database for a list of chunks of Mona Lisa. Once it knows which chunks to work on, it searches through the smaller images for good matches to those chunks. It replies to the database with the images that match well. There is a script running on the front end VM that queries the database for which images matched well and has NGINX display these images. The result is a photo mosaic of Mona Lisa made up of many smaller images.
+This is a demo of VM Scale Sets and autoscale. It sets up a MySQL database, an NGINX web front end, and an Ubuntu compute back end. The compute back end starts with a single VM but scales up to roughly 15 VMs once the first one starts doing work (the autoscale rules are based on CPU). Each compute node is given an image (Mona Lisa) and a set of 10,000 small images (cifar 10 group 1). It queries the database for a list of chunks of Mona Lisa. Once it knows which chunks to work on, it searches through the smaller images for good matches to those chunks. It replies to the database with the images that match well. There is a script running on the front end VM that queries the database for which images matched well and has NGINX display these images. The result is a photo mosaic of Mona Lisa made up of many smaller images.
 
 SUPER EASY DEPLOY
 =================
