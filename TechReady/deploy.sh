@@ -1,3 +1,6 @@
+rm -f web_node.tar.gz
+rm -f vmss_node.tar.gz
+
 tar -cvf web_node.tar.gz web_node/
 tar -cvf vmss_node.tar.gz vmss_node/
 
