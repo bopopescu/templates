@@ -5,7 +5,7 @@ This is a demo of VM Scale Sets and autoscale. It sets up a MySQL database, an N
 
 SUPER EASY DEPLOY
 =================
-Click on the following link. It will take you to the Azure portal. Fill in your desired parameters (make sure the vmssName is globally unique and less than 9 characters in length), and hit "ok". From here on in this README, the vmssName you provide as a parameter is referred to as globally_unique_string_less_than_9_chars. Anywhere below we refer to 'ubuntu' as a username, replace that with the username you specify here as a paramters. However, root will still be the username for mysql. Also, anywhere below that refers to 'Passw0rd', replcae with the password you specify here.
+Click on the following link. It will take you to the Azure portal. Fill in your desired parameters (make sure the vmssName is globally unique and less than 9 characters in length), and hit "ok". From here on in this README, the vmssName you provide as a parameter is referred to as globally_unique_string_less_than_9_chars. Anywhere below we refer to 'ubuntu' as a username, replace that with the username you specify here as a paramters. However, root will still be the username for mysql. Also, anywhere below that refers to 'Passw0rd', replace with the password you specify here.
 
 https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fgatneil%2Ftemplates%2Fmaster%2FTechReady%2Ftemplate%2Fvmss_node.json
 
