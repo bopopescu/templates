@@ -4,7 +4,7 @@
 #import timeit
 #import numpy as np
 #import sys
-#import subprocess
+import subprocess
 import time
 import mysql.connector
 from credentials import *
