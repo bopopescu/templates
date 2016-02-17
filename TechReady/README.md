@@ -32,9 +32,11 @@ At first, you should see the first row or two being filled in by the first VM th
 WHAT TO EXPECT
 ==============
 
-While still being constructed, the Mona Lisa Photo Mosaic should look something like the following:
+The photo mosaic takes about an hour to be constructed. While still being constructed, the Mona Lisa Photo Mosaic should look something like the following:
 
 ![alt text](https://raw.githubusercontent.com/gatneil/templates/master/TechReady/images/MidwayMona.png "image can't load")
+
+If you want to change the amount of time it takes for the photo mosiac to be constructed, the easiest way would be to increase/decrease the number of small images each compute node is given. This is probably best done in vmss_node/do_work.py, around line 53 where cifar-10 batch 1 is read into memory. If you do this, please check the DEPLOYMENT DETAILS section for some advice on what you will need to change.
 
 
 DEBUGGING
@@ -53,6 +55,8 @@ The relevant files for custom script extensions end up under /var/lib/waagent/Mi
 DEPLOYMENT DETAILS
 ==================
 vmss_node.json is the main deployment file. If you don't modify anything, all you need to do is deploy this file to Azure (be sure to change the parameters in templates/vmss_node.parameters.json first, though; in particular, vmssName must be unique across all of Azure). You can do this via portal, XPlat CLI, Powershell, etc. If you do modify something, you will need to use github to make a fork of this repo, make your modifications, push your changes to your fork, then deploy the vmss_node.json file in your fork. Be sure to change urls because as is they point to my repo. If you are on a *nix box, you can use the sh deploy.sh script to automate this somewhat. It takes in the vmssName as its first argument. If you change the username or password parameters, be aware that the demo is likely to fail if they contain special characters with meaning in bash.
+
+If you change anything in the vmss_node/ or web_node/ directories, you will need to tar them up as an archive then push them to github (refer to deploy.sh as an example).
 
 
 
