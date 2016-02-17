@@ -41,7 +41,7 @@ DEBUGGING
 =========
 A resource group named {globally_unique_string_less_than_9_chars}rg is created in your subscription when you deploy this template. Inside, you will find public ip addresses named customscriptLinuxPublicIp and {globally_unique_string_less_than_9_chars}pip. The first is the public IP for the VM running the web front end and database. The second is the public IP for the LB fronting the VMSS. The VMs all use username 'ubuntu', and the database uses user 'root'. Both have the password 'Passw0rd'. You can ssh directly into the web/db VM, but to connect to a VM in the VMSS you need to pas through the LB via its NAT rules. To connect to VM i in the VMSS (i starting at 0), use:
 
-ssh -p {50000+i}ubuntu@{public ip associated with the VMSS}
+ssh -p {50000+i}ubuntu@{public ip associated with the VMSS LB}
 
 and use password 'Passw0rd'.
 
