@@ -214,7 +214,7 @@
         "typeHandlerVersion": "1.4",
         "settings": {
             "fileUris":[
-                "https://github.com/gatneil/templates/raw/master/TechReady/template/web_node.tar.gz"
+                "https://github.com/gatneil/templates/raw/master/TechReady/template/web_node.sh"
             ]
         },
 	"protectedSettings":{
