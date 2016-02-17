@@ -330,7 +330,7 @@
                   "autoUpgradeMinorVersion":true,
                   "settings":{
                     "fileUris":[
-                      "https://github.com/gatneil/scripts/raw/master/TechReadyDemo/vmss_node.sh"
+                      "https://github.com/gatneil/templates/raw/master/TechReady/template/vmss_node.sh"
                     ]
                   },
 		  "protectedSettings":{
