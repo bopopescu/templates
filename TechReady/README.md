@@ -3,6 +3,8 @@ SUMMARY
 
 This is a demo of VM Scale Sets and autoscale. It sets up a MySQL database, an NGINX web front end, and an Ubuntu compute back end. The compute back end starts with a single VM but scales up to roughly 15 VMs once the first one starts doing work (the autoscale rules are based on CPU). Each compute node is given an image (Mona Lisa) and a set of 10,000 small images (cifar 10 group 1). It queries the database for a list of chunks of Mona Lisa. Once it knows which chunks to work on, it searches through the smaller images for good matches to those chunks. It replies to the database with the images that match well. There is a script running on the front end VM that queries the database for which images matched well and has NGINX display these images. The result is a photo mosaic of Mona Lisa made up of many smaller images.
 
+IMPORTANT NOTE: This demo is fundamentally insecure. It does not follow security best practices (look through the TODOs for a non-exhaustive list of ways it is insecure). Please don't put any sensitive information on VMs and VMSSes created through this demo, and please delete the resource group for this demo once you are done using it.
+
 SUPER EASY DEPLOY
 =================
 Click on the following link. It will take you to the Azure portal. Fill in your desired parameters (make sure the vmssName is globally unique and less than 9 characters in length), and hit "ok". From here on in this README, the vmssName you provide as a parameter is referred to as globally_unique_string_less_than_9_chars. Anywhere below we refer to 'ubuntu' as a username, replace that with the username you specify here as a paramters. However, root will still be the username for mysql. Also, anywhere below that refers to 'Passw0rd', replace with the password you specify here.
@@ -14,8 +16,6 @@ EASY DEPLOY
 ```sh deploy.sh {globally_unique_string_less_than_9_chars}```
 
 NOTE: only works on *nix. Relies on tar, git, and azure XPlatCLI. Assumes you are running from within the git repo in the root folder.
-
-IMPORTANT NOTE: This demo is fundamentally insecure. It does not follow security best practices (look through the TODOs for a non-exhaustive list of ways it is insecure). Please don't put any sensitive information on VMs and VMSSes created through this demo, and please delete the resource group for this demo once you are done using it.
 
 
 WHERE TO LOOK FOR RESULTS
