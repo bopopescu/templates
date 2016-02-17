@@ -3,6 +3,12 @@ SUMMARY
 
 This is a demo of VM Scale Sets and autoscale. It sets up a MySQL database, an NGINX web front end, and an Ubuntu compute back end. The compute back end starts with a single VM but scales up to roughly 15 VMs once the first one starts doing work (the autoscale rules is based on CPU). Each compute node is given an image (Mona Lisa) and a set of 10,000 small images (cifar 10 group 1). It queries the database for a list of chunks of Mona Lisa. Once it knows which chunks to work on, it searches through the smaller images for good matches to those chunks. It replies to the database with the images that match well. There is a script running on the front end VM that queries the database for which images matched well and has NGINX display these images. The result is a photo mosaic of Mona Lisa made up of many smaller images.
 
+SUPER EASY DEPLOY
+=================
+Click on the following link. It will take you to the Azure portal. Fill in your desired parameters (make sure the vmssName is globally unique and less than 9 characters in length), and hit "ok". From here on in this README, the vmssName you provide as a parameter is referred to as globally_unique_string_less_than_9_chars.
+
+https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fgatneil%2Ftemplates%2Fmaster%2FTechReady%2Ftemplate%2Fvmss_node.json
+
 EASY DEPLOY
 ===========
 ```sh deploy.sh {globally_unique_string_less_than_9_chars}```
@@ -19,6 +25,8 @@ Let web_url_base := http://web{globally_unique_string_less_than_9_chars}.westus.
 To see Mona Lisa, open {web_url_base}:8080/cat.html in your browser.
 
 To see the photo mosaic of Mona Lisa, open {web_url_base}:8080/cat_substitute.html
+
+At first, you should see the first row or two being filled in by the first VM that starts working. Once autoscale kicks in, you should see alternating rows start to be filled in. This is because each VM takes on 2 rows of work at a time.
 
 
 DEBUGGING
