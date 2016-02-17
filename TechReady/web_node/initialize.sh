@@ -36,7 +36,7 @@ mysqladmin --user=root password $2
 service mysql stop
 mysqld --bind-address=0.0.0.0 &
 sleep 5
-mysql --host=localhost --user=root --password=$2 -e "\"GRANT ALL ON *.* TO 'root'@'%' IDENTIFIED BY '$2';\""
+mysql --host=localhost --user=root --password=$2 -e "GRANT ALL ON *.* TO 'root'@'%' IDENTIFIED BY '$2';"
 
 # initialize db for parseling out work
 python create_db.py
