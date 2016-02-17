@@ -9,7 +9,7 @@
       "value": "Standard_A1"
     },
     "vmssName": {
-      "value": "nsgmona"
+      "value": "nsgmon"
     },
     "instanceCount": {
       "value": 1
