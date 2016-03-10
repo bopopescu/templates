@@ -1,0 +1,21 @@
+{
+  "": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "image": {
+      "value": "Ubuntu"
+    },
+    "vmssName": {
+      "value": "nsgub"
+    },
+    "instanceCount": {
+      "value": 2
+    },
+    "adminUsername": {
+      "value": "negat"
+    },
+    "adminPassword": {
+      "value": "P4ssw0rd"
+    }
+  }
+}
