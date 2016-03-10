@@ -11,9 +11,9 @@
     },
     "image":{
       "type":"string",
-      "defaultValue":"Ubuntu",
       "allowedValues":[
-	  "Ubuntu"
+	  "Ubuntu14.04.4-LTS",
+          "RHEL7.2"
       ],
       "metadata":{
         "description":"The os disk image for the VMs in the scale set."
@@ -78,13 +78,19 @@
     "nicName":"[concat(variables('namingInfix'), 'nic')]",
     "ipConfigName":"[concat(variables('namingInfix'), 'ipconfig')]",
     "frontEndIPConfigID":"[concat(variables('lbID'),'/frontendIPConfigurations/loadBalancerFrontEnd')]",
-    "osType":{
+    "imageUbuntu14.04.4-LTS":{
       "publisher":"Canonical",
       "offer":"UbuntuServer",
       "sku":"14.04.4-LTS",
       "version":"latest"
     },
-    "imageReference":"[variables('osType')]"
+    "imageRHEL7.2":{
+      "publisher":"RedHat",
+      "offer":"RHEL",
+      "sku":"7.2",
+      "version":"latest"
+    },
+    "imageReference":"[variables(concat('image', parameters('image')))]"
   },
   "resources":[
     {

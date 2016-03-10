@@ -3,10 +3,10 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "image": {
-      "value": "Ubuntu"
+      "value": "RHEL7.2"
     },
     "vmssName": {
-      "value": "nsgub"
+      "value": "nsgrhel"
     },
     "instanceCount": {
       "value": 2
