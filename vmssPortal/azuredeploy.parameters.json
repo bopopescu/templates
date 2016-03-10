@@ -3,10 +3,10 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "image": {
-      "value": "Debian8.0"
+      "value": "CentOs7.2"
     },
     "vmssName": {
-      "value": "nsgdeb"
+      "value": "nsgcent"
     },
     "instanceCount": {
       "value": 2

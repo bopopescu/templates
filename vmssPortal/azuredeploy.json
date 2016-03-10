@@ -13,9 +13,10 @@
       "type":"string",
       "allowedValues":[
 	  "Ubuntu14.04.4-LTS",
+          "Debian8.0",
+          "CentOs7.2",
           "RHEL7.2",
-          "CoreOsStable",
-          "Debian8.0"
+          "CoreOsStable"
       ],
       "metadata":{
         "description":"The os disk image for the VMs in the scale set."
@@ -102,6 +103,12 @@
       "publisher":"credativ",
       "offer":"Debian",
       "sku":"8",
+      "version":"latest"
+    },
+    "imageCentOs7.2":{
+      "publisher":"OpenLogic",
+      "offer":"CentOS",
+      "sku":"7.2",
       "version":"latest"
     },
     "imageReference":"[variables(concat('image', parameters('image')))]"
