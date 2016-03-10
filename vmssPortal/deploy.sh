@@ -3,7 +3,7 @@ echo "  \"$schema\": \"http://schema.management.azure.com/schemas/2015-01-01/dep
 echo "  \"contentVersion\": \"1.0.0.0\"," >> azuredeploy.parameters.json
 echo "  \"parameters\": {" >> azuredeploy.parameters.json
 echo "    \"image\": {" >> azuredeploy.parameters.json
-echo "      \"value\": \"RHEL7.2\"" >> azuredeploy.parameters.json
+echo "      \"value\": \"Debian8.0\"" >> azuredeploy.parameters.json
 echo "    }," >> azuredeploy.parameters.json
 echo "    \"vmssName\": {" >> azuredeploy.parameters.json
 echo "      \"value\": \"$1\"" >> azuredeploy.parameters.json

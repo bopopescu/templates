@@ -3,10 +3,10 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "image": {
-      "value": "RHEL7.2"
+      "value": "Debian8.0"
     },
     "vmssName": {
-      "value": "nsgrhel"
+      "value": "nsgdeb"
     },
     "instanceCount": {
       "value": 2

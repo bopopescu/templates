@@ -13,7 +13,9 @@
       "type":"string",
       "allowedValues":[
 	  "Ubuntu14.04.4-LTS",
-          "RHEL7.2"
+          "RHEL7.2",
+          "CoreOsStable",
+          "Debian8.0"
       ],
       "metadata":{
         "description":"The os disk image for the VMs in the scale set."
@@ -88,6 +90,18 @@
       "publisher":"RedHat",
       "offer":"RHEL",
       "sku":"7.2",
+      "version":"latest"
+    },
+    "imageCoreOsStable":{
+      "publisher":"CoreOS",
+      "offer":"CoreOS",
+      "sku":"Stable",
+      "version":"latest"
+    },
+    "imageDebian8.0":{
+      "publisher":"credativ",
+      "offer":"Debian",
+      "sku":"8",
       "version":"latest"
     },
     "imageReference":"[variables(concat('image', parameters('image')))]"
