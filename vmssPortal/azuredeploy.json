@@ -15,8 +15,8 @@
 	  "Ubuntu14.04.4-LTS",
           "Debian8.0",
           "CentOs7.2",
-          "RHEL7.2",
-          "CoreOsStable"
+          "CoreOsStable",
+          "OpenSuse13.2"
       ],
       "metadata":{
         "description":"The os disk image for the VMs in the scale set."
@@ -87,12 +87,6 @@
       "sku":"14.04.4-LTS",
       "version":"latest"
     },
-    "imageRHEL7.2":{
-      "publisher":"RedHat",
-      "offer":"RHEL",
-      "sku":"7.2",
-      "version":"latest"
-    },
     "imageCoreOsStable":{
       "publisher":"CoreOS",
       "offer":"CoreOS",
@@ -109,6 +103,12 @@
       "publisher":"OpenLogic",
       "offer":"CentOS",
       "sku":"7.2",
+      "version":"latest"
+    },
+    "imageOpenSuse13.2":{
+      "publisher":"SUSE",
+      "offer":"openSUSE",
+      "sku":"13.2",
       "version":"latest"
     },
     "imageReference":"[variables(concat('image', parameters('image')))]"

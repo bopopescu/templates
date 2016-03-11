@@ -3,10 +3,10 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "image": {
-      "value": "CentOs7.2"
+      "value": "OpenSuse13.2"
     },
     "vmssName": {
-      "value": "nsgcent"
+      "value": "nsgsuse"
     },
     "instanceCount": {
       "value": 2
