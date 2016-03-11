@@ -3,7 +3,7 @@ echo "  \"$schema\": \"http://schema.management.azure.com/schemas/2015-01-01/dep
 echo "  \"contentVersion\": \"1.0.0.0\"," >> azuredeploy.parameters.json
 echo "  \"parameters\": {" >> azuredeploy.parameters.json
 echo "    \"image\": {" >> azuredeploy.parameters.json
-echo "      \"value\": \"OpenSuse13.2\"" >> azuredeploy.parameters.json
+echo "      \"value\": \"$2\"" >> azuredeploy.parameters.json
 echo "    }," >> azuredeploy.parameters.json
 echo "    \"vmssName\": {" >> azuredeploy.parameters.json
 echo "      \"value\": \"$1\"" >> azuredeploy.parameters.json
@@ -21,4 +21,5 @@ echo "  }" >> azuredeploy.parameters.json
 echo "}" >> azuredeploy.parameters.json
 
 
-azure group create -n $1rg -d $1dep -l "West US" -f azuredeploy.json -e azuredeploy.parameters.json
+azure group create -n $1rg -d $1dep -l "West US" -f $3 -e azuredeploy.parameters.json
+rm -f azuredeploy.parameters.json
