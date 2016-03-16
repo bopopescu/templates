@@ -7,7 +7,7 @@
       "metadata":{
         "description":"location of resources"
       }
-    }
+    },
     "vmSku":{
       "type":"string",
       "defaultValue":"Standard_D1_v2",
@@ -58,7 +58,8 @@
     }
   },
   "variables":{
-    "apiVersion":"2016-03-30",
+    "apiVersion":"2015-06-15",
+    "vmssApiVersion":"2016-30-30",
     "resourceLocation": "[parameters('location')]",
     "storageAccountType":"Standard_LRS",
     "saCount":5,
@@ -232,7 +233,7 @@
       "type":"Microsoft.Compute/virtualMachineScaleSets",
       "name":"[variables('namingInfix')]",
       "location":"[variables('resourceLocation')]",
-      "apiVersion":"[variables('apiVersion')]",
+      "apiVersion":"[variables('vmssApiVersion')]",
       "dependsOn":[
         "storageLoop",
         "[concat('Microsoft.Network/loadBalancers/', variables('loadBalancerName'))]",
