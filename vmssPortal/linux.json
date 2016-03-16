@@ -2,6 +2,12 @@
   "$schema":"http://schema.management.azure.com/schemas/2015-01-01-preview/deploymentTemplate.json",
   "contentVersion":"1.0.0.0",
   "parameters":{
+    "location":{
+      "type":"string",
+      "metadata":{
+        "description":"location of resources"
+      }
+    }
     "vmSku":{
       "type":"string",
       "defaultValue":"Standard_D1_v2",
@@ -52,8 +58,8 @@
     }
   },
   "variables":{
-    "apiVersion":"2015-06-15",
-    "resourceLocation": "[resourceGroup().location]",
+    "apiVersion":"2016-03-30",
+    "resourceLocation": "[parameters('location')]",
     "storageAccountType":"Standard_LRS",
     "saCount":5,
     "namingInfix": "[toLower(parameters('vmssName'))]",
