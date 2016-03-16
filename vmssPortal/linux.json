@@ -12,11 +12,13 @@
     "image":{
       "type":"string",
       "allowedValues":[
-	  "Ubuntu14.04.4-LTS",
-          "Debian8.0",
           "CentOs7.2",
           "CoreOsStable",
-          "OpenSuse13.2"
+          "Debian8.0",
+          "OpenSuse13.2",
+          "RHEL7.2",
+          "SLES12-SP1",
+	  "Ubuntu14.04.4-LTS"
       ],
       "metadata":{
         "description":"The os disk image for the VMs in the scale set."
@@ -55,6 +57,8 @@
     "storageAccountType":"Standard_LRS",
     "saCount":5,
     "namingInfix": "[toLower(parameters('vmssName'))]",
+
+
     "newStorageAccountSuffix":"[concat(variables('namingInfix'), 'sa')]",
     "uniqueStringArray":[
       "[concat(uniqueString(concat(resourceGroup().id, variables('newStorageAccountSuffix'), '0')))]",
@@ -63,6 +67,8 @@
       "[concat(uniqueString(concat(resourceGroup().id, variables('newStorageAccountSuffix'), '3')))]",
       "[concat(uniqueString(concat(resourceGroup().id, variables('newStorageAccountSuffix'), '4')))]"
     ],
+
+
     "vhdContainerName":"[concat(variables('namingInfix'), 'vhd')]",
     "osDiskName":"[concat(variables('namingInfix'), 'osdisk')]",
     "addressPrefix":"10.0.0.0/16",
@@ -81,10 +87,12 @@
     "nicName":"[concat(variables('namingInfix'), 'nic')]",
     "ipConfigName":"[concat(variables('namingInfix'), 'ipconfig')]",
     "frontEndIPConfigID":"[concat(variables('lbID'),'/frontendIPConfigurations/loadBalancerFrontEnd')]",
-    "imageUbuntu14.04.4-LTS":{
-      "publisher":"Canonical",
-      "offer":"UbuntuServer",
-      "sku":"14.04.4-LTS",
+
+
+    "imageCentOs7.2":{
+      "publisher":"OpenLogic",
+      "offer":"CentOS",
+      "sku":"7.2",
       "version":"latest"
     },
     "imageCoreOsStable":{
@@ -99,18 +107,32 @@
       "sku":"8",
       "version":"latest"
     },
-    "imageCentOs7.2":{
-      "publisher":"OpenLogic",
-      "offer":"CentOS",
-      "sku":"7.2",
-      "version":"latest"
-    },
     "imageOpenSuse13.2":{
       "publisher":"SUSE",
       "offer":"openSUSE",
       "sku":"13.2",
       "version":"latest"
     },
+    "imageRHEL7.2":{
+      "publisher":"RedHat",
+      "offer":"RHEL",
+      "sku":"7.2",
+      "version":"latest"
+    },
+    "imageSLES12-SP1":{
+      "publisher":"SUSE",
+      "offer":"SLES",
+      "sku":"12-SP1",
+      "version":"latest"
+    },
+    "imageUbuntu14.04.4-LTS":{
+      "publisher":"Canonical",
+      "offer":"UbuntuServer",
+      "sku":"14.04.4-LTS",
+      "version":"latest"
+    },
+
+
     "imageReference":"[variables(concat('image', parameters('image')))]"
   },
   "resources":[
