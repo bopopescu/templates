@@ -57,6 +57,7 @@
       }
     },
     "password":{
+      "defaultValue": "",
       "type":"securestring",
       "metadata":{
         "description":"Admin password on all VMs."
@@ -64,6 +65,7 @@
     },
     "sshPublicKey":{
       "type":"string",
+      "defaultValue": "",
       "metadata":{
         "description":"ssh public key for connecting to VMs."
       }
@@ -71,7 +73,7 @@
   },
   "variables":{
     "apiVersion":"2015-06-15",
-    "vmssApiVersion":"2016-30-30",
+    "vmssApiVersion":"2016-03-30",
     "resourceLocation": "[parameters('location')]",
     "storageAccountType":"Standard_LRS",
     "saCount":5,
