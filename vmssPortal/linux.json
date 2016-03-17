@@ -166,6 +166,7 @@
     "sshKeyPath": "[concat('/home/',parameters('username'),'/.ssh/authorized_keys')]",
     "osProfilesshPublicKey":{
       "computerNamePrefix":"[variables('namingInfix')]",
+      "adminUsername":"[parameters('username')]",
       "adminPassword":"[parameters('password')]",
       "linuxConfiguration": {
         "disablePasswordAuthentication": "true",
