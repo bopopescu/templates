@@ -68,7 +68,7 @@ def test_linux(linux_image, auth_type, local_naming_infix):
     return return_val
 
 def test_linux_wrapper(linux_image, auth_type):
-    local_naming_infix = NAMING_INFIX + linux_image[0:2] + auth_type[0]
+    local_naming_infix = NAMING_INFIX + linux_image[0:2] + auth_type[0] + 'a'
 
     try:
         res = test_linux(linux_image, auth_type, local_naming_infix)
@@ -85,7 +85,10 @@ def test_all_linux():
         for auth_type in AUTH_TYPES:
             # (*** start_new_thread tries to use system python, which doesn't have ssl ***)
             #thread.start_new_thread( test_linux_wrapper, (linux_image, auth_type, ) )
-            test_linux_wrapper(linux_image, auth_type)
+            try:
+                test_linux_wrapper(linux_image, auth_type)
+            except:
+                print (sys.exc_info()[0])
 
 
 test_all_linux()
