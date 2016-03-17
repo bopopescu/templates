@@ -12,7 +12,7 @@ from password import *
 from sshpublickey import *
 
 AUTH_TYPES = ["password", "sshPublicKey"]
-NAMING_INFIX = "nsg"
+NAMING_INFIX = "nsglonglonglonglong"
 
 parameters_json_base = {"location": {"value": "westus"},
                         "vmSku": {"value": "Standard_D1_v2"},
@@ -36,10 +36,11 @@ with open('windows.json', 'r') as windows_file:
     windows_json = json.loads(windows_json_string)
 
 linux_images = linux_json["parameters"]["image"]["allowedValues"]
+windows_images = windows_json["parameters"]["WindowsServerVersion"]["allowedValues"]
 
 access_token = azurerm.get_access_token(tenant_id, application_id, application_secret)
 
-def test_linux(linux_image, auth_type, local_naming_infix):
+def test_linux(linux_image, auth_type, local_naming_infix, wl):
     return_val = False
     rg_name = local_naming_infix + "rg"
     dep_name = local_naming_infix + "dep"
@@ -47,8 +48,12 @@ def test_linux(linux_image, auth_type, local_naming_infix):
     res = azurerm.create_resource_group(access_token, subscription_id, rg_name, 'westus')
 
     cur_parameters_json = copy.deepcopy(parameters_json[auth_type])
-    cur_parameters_json["image"] = {"value": linux_image}
-    cur_parameters_json["authenticationType"] = {"value": auth_type}
+    if wl == "l":
+        cur_parameters_json["image"] = {"value": linux_image}
+        cur_parameters_json["authenticationType"] = {"value": auth_type}
+    else:
+        cur_parameters_json["WindowsServerVersion"] = {"value": linux_image}
+
     cur_parameters_json["vmssName"] = {"value": local_naming_infix}
     cur_parameters_json_string = json.dumps(cur_parameters_json)
 
@@ -68,10 +73,10 @@ def test_linux(linux_image, auth_type, local_naming_infix):
     return return_val
 
 def test_linux_wrapper(linux_image, auth_type):
-    local_naming_infix = NAMING_INFIX + linux_image[0:2] + auth_type[0] + 'a'
+    local_naming_infix = NAMING_INFIX + linux_image[0:2] + auth_type[0]
 
     try:
-        res = test_linux(linux_image, auth_type, local_naming_infix)
+        res = test_linux(linux_image, auth_type, local_naming_infix, 'l')
         
     except:
         res = False
@@ -90,8 +95,12 @@ def test_all_linux():
             except:
                 print (sys.exc_info()[0])
 
+def test_all_windows():
+    for windows_image in windows_images:
+        test_linux(windows_image, "password", NAMING_INFIX + "".join(windows_image.split("-")), 'w')
 
 test_all_linux()
+test_all_windows()
 
 #test_linux("Ubuntu14.04.4-LTS", "password", NAMING_INFIX + "e")
 #test_linux("CentOs7.2", "password", NAMING_INFIX)
