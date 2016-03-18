@@ -51,15 +51,18 @@ def test_linux(linux_image, auth_type, local_naming_infix, wl):
     if wl == "l":
         cur_parameters_json["image"] = {"value": linux_image}
         cur_parameters_json["authenticationType"] = {"value": auth_type}
+        json_string = linux_json_string
     else:
         cur_parameters_json["WindowsServerVersion"] = {"value": linux_image}
+        json_string = windows_json_string
 
-    print(local_naming_infix)
+    #print(local_naming_infix)
     cur_parameters_json["vmssName"] = {"value": local_naming_infix}
     cur_parameters_json_string = json.dumps(cur_parameters_json)
 
-    res = azurerm.deploy_template(access_token, subscription_id, rg_name, dep_name, linux_json_string, cur_parameters_json_string)
-    print(res.text)
+
+    res = azurerm.deploy_template(access_token, subscription_id, rg_name, dep_name, json_string, cur_parameters_json_string)
+    #print(res.text)
 
     while True:
         time.sleep(10)
@@ -68,13 +71,14 @@ def test_linux(linux_image, auth_type, local_naming_infix, wl):
             print("properties not in res")
             print(res)
 
-        if res["properties"]["provisioningState"] == "Failed":
-            #print("provisioning state failed")
-            break
+        else:
+            if res["properties"]["provisioningState"] == "Failed":
+                #print("provisioning state failed")
+                break
 
-        if res["properties"]["provisioningState"] == "Succeeded":
-            return_val = True
-            break
+            if res["properties"]["provisioningState"] == "Succeeded":
+                return_val = True
+                break
 
 
     
