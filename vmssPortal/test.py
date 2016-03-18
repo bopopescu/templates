@@ -12,7 +12,7 @@ from password import *
 from sshpublickey import *
 
 AUTH_TYPES = ["password", "sshPublicKey"]
-NAMING_INFIX = "longlonglonglonglonglonglonglonglonglonglonglonglonglonglongl"
+NAMING_INFIX = "longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong"[0:61-16]
 
 parameters_json_base = {"location": {"value": "westus"},
                         "vmSku": {"value": "Standard_D1_v2"},
@@ -54,10 +54,12 @@ def test_linux(linux_image, auth_type, local_naming_infix, wl):
     else:
         cur_parameters_json["WindowsServerVersion"] = {"value": linux_image}
 
+    print(local_naming_infix)
     cur_parameters_json["vmssName"] = {"value": local_naming_infix}
     cur_parameters_json_string = json.dumps(cur_parameters_json)
 
     res = azurerm.deploy_template(access_token, subscription_id, rg_name, dep_name, linux_json_string, cur_parameters_json_string)
+    print(res.text)
 
     while True:
         time.sleep(10)
@@ -67,7 +69,7 @@ def test_linux(linux_image, auth_type, local_naming_infix, wl):
             print(res)
 
         if res["properties"]["provisioningState"] == "Failed":
-            print("provisioning state failed")
+            #print("provisioning state failed")
             break
 
         if res["properties"]["provisioningState"] == "Succeeded":
