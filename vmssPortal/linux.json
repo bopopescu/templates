@@ -33,8 +33,9 @@
     "vmssName":{
       "type":"string",
       "metadata":{
-        "description":"String used as a base for naming resources. Must be at least 3 characters in length and globally unique across Azure. A hash is prepended to this string for some resources, and resource-specific information is appended."
-      }
+        "description":"String used as a base for naming resources. Must be 3-61 characters in length and globally unique across Azure. A hash is prepended to this string for some resources, and resource-specific information is appended."
+      },
+      "maxLength": 61
     },
     "instanceCount":{
       "type":"int",
