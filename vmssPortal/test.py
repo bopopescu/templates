@@ -12,7 +12,7 @@ from password import *
 from sshpublickey import *
 
 AUTH_TYPES = ["password", "sshPublicKey"]
-NAMING_INFIX = "nsglonglonglonglong"
+NAMING_INFIX = "longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong"
 
 parameters_json_base = {"location": {"value": "westus"},
                         "vmSku": {"value": "Standard_D1_v2"},
@@ -43,7 +43,7 @@ access_token = azurerm.get_access_token(tenant_id, application_id, application_s
 def test_linux(linux_image, auth_type, local_naming_infix, wl):
     return_val = False
     rg_name = local_naming_infix + "rg"
-    dep_name = local_naming_infix + "dep"
+    dep_name = local_naming_infix[0:20] + "dep"
 
     res = azurerm.create_resource_group(access_token, subscription_id, rg_name, 'westus')
 
@@ -62,12 +62,19 @@ def test_linux(linux_image, auth_type, local_naming_infix, wl):
     while True:
         time.sleep(10)
         res = azurerm.show_deployment(access_token, subscription_id, rg_name, dep_name)
+        if "properties" not in res:
+            print("properties not in res")
+            print(res)
+
+        if res["properties"]["provisioningState"] == "Failed":
+            print("provisioning state failed")
+            break
+
         if res["properties"]["provisioningState"] == "Succeeded":
             return_val = True
             break
 
-        if res["properties"]["provisioningState"] == "Failed":
-            break
+
     
     res = azurerm.delete_resource_group(access_token, subscription_id, rg_name)
     return return_val
@@ -99,8 +106,8 @@ def test_all_windows():
     for windows_image in windows_images:
         test_linux(windows_image, "password", NAMING_INFIX + "".join(windows_image.split("-")), 'w')
 
-test_all_linux()
-test_all_windows()
+#test_all_linux()
+#test_all_windows()
 
 #test_linux("Ubuntu14.04.4-LTS", "password", NAMING_INFIX + "e")
 #test_linux("CentOs7.2", "password", NAMING_INFIX)
