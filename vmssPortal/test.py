@@ -12,7 +12,7 @@ from password import *
 from sshpublickey import *
 
 AUTH_TYPES = ["password", "sshPublicKey"]
-NAMING_INFIX = "longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong"
+NAMING_INFIX = "longlonglonglonglonglonglonglonglonglonglonglonglonglonglongl"
 
 parameters_json_base = {"location": {"value": "westus"},
                         "vmSku": {"value": "Standard_D1_v2"},
