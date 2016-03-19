@@ -1,0 +1,6 @@
+{
+  "title": "Deploy a VM Scale Set with Windows VMs",
+  "description": "This template allows you to deploy a VM Scale Set of Windows VMs. These VMs are behind a load balancer with NAT rules for RDP connections. After it has deployed, you can look in the Azure Portal to find the public IP address of the load balancer. Then, you can connect to VM i via RDP on the public ip address at port 50000+i.",
+  "summary": "This template deploys a VM Scale Set of Windows VMs behind a load balancer with NAT rules for RDP connections.",
+  "longSummary": "This template deploys a VM Scale Set of Windows VMs behind a load balancer with NAT rules for RDP connections."
+}
