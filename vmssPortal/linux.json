@@ -38,11 +38,10 @@
       "maxLength": 61
     },
     "instanceCount":{
-      "type":"int",
+      "type":"string",
       "metadata":{
         "description":"Number of VM instances (100 or less)."
-      },
-      "maxValue":100
+      }
     },
     "authenticationType":{
       "type":"string",
@@ -72,12 +71,13 @@
     }
   },
   "variables":{
+    "instanceCount": "[int(parameters('instanceCount'))]",
     "apiVersion":"2015-06-15",
     "vmssApiVersion":"2016-03-30",
     "resourceLocation": "[parameters('location')]",
     "storageAccountType":"Standard_LRS",
     "saCount":5,
-    "namingInfix": "[toLower(substring(parameters('vmssName'), 0, 9))]",
+    "namingInfix": "[toLower(substring(concat(parameters('vmssName'), uniqueString(resourceGroup().id)), 0, 9))]",
     "longNamingInfix": "[toLower(parameters('vmssName'))]",
 
 
@@ -285,9 +285,10 @@
       "sku":{
         "name":"[parameters('vmSku')]",
         "tier":"Standard",
-        "capacity":"[parameters('instanceCount')]"
+        "capacity":"[variables('instanceCount')]"
       },
       "properties":{
+        "overprovision": "true",
         "upgradePolicy":{
           "mode":"Manual"
         },

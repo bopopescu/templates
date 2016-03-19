@@ -35,19 +35,18 @@
       "maxLength": 61
     },
     "instanceCount":{
-      "type":"int",
+      "type":"string",
       "metadata":{
         "description":"Number of VM instances (100 or less)."
-      },
-      "maxValue":100
+      }
     },
-    "adminUsername":{
+    "username":{
       "type":"string",
       "metadata":{
         "description":"Admin username on all VMs."
       }
     },
-    "adminPassword":{
+    "password":{
       "type":"securestring",
       "metadata":{
         "description":"Admin password on all VMs."
@@ -55,12 +54,13 @@
     }
   },
   "variables":{
+    "instanceCount": "[int(parameters('instanceCount'))]",
     "apiVersion":"2015-06-15",
     "vmssApiVersion":"2016-03-30",
     "resourceLocation": "[resourceGroup().location]",
     "storageAccountType":"Standard_LRS",
     "saCount":5,
-    "namingInfix": "[toLower(substring(parameters('vmssName'), 0, 9))]",
+    "namingInfix": "[toLower(substring(concat(parameters('vmssName'), uniqueString(resourceGroup().id)), 0, 9))]",
     "longNamingInfix": "[toLower(parameters('vmssName'))]",
     "newStorageAccountSuffix":"[concat(variables('namingInfix'), 'sa')]",
     "uniqueStringArray":[
@@ -195,9 +195,10 @@
       "sku":{
         "name":"[parameters('vmSku')]",
         "tier":"Standard",
-        "capacity":"[parameters('instanceCount')]"
+        "capacity":"[variables('instanceCount')]"
       },
       "properties":{
+        "overprovision": "true",
         "upgradePolicy":{
           "mode":"Manual"
         },
@@ -219,8 +220,8 @@
           },
           "osProfile":{
             "computerNamePrefix":"[variables('namingInfix')]",
-            "adminUsername":"[parameters('adminUsername')]",
-            "adminPassword":"[parameters('adminPassword')]"
+            "adminUsername":"[parameters('username')]",
+            "adminPassword":"[parameters('password')]"
           },
           "networkProfile":{
             "networkInterfaceConfigurations":[
