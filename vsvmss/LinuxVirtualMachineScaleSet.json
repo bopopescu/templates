@@ -1,4 +1,4 @@
-﻿{
+{
   "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json",
   "contentVersion": "1.0.0.0",
   "parameters": {
@@ -21,10 +21,10 @@
     "vmssName": {
       "type": "string",
       "metadata": {
-        "description": "DNS name used for public IP addresses and as base for naming other resources. Must be globally unique and 3 to 9 characters long."
+        "description": "DNS name used for public IP addresses and as base for naming other resources. Must be globally unique and 3 to 61 characters long."
       },
       "minLength": 3,
-      "maxLength": 9
+      "maxLength": 61
     },
     "instanceCount": {
       "type": "int",
@@ -51,7 +51,8 @@
   "variables": {
     "location": "[resourceGroup().location]",
     "storageAccountType": "Standard_LRS",
-    "namingInfix": "[toLower(parameters('vmssName'))]",
+    "namingInfix": "[toLower(substring(concat(parameters('vmssName'), uniqueString(resourceGroup().id)), 0, 9))]",
+    "longNamingInfix": "[toLower(parameters('vmssName'))]",
     "newStorageAccountSuffix": "[concat(variables('namingInfix'), 'sa')]",
     "uniqueStringArray": [
       "[concat(uniqueString(concat(resourceGroup().id, variables('newStorageAccountSuffix'), '0')), variables('newStorageAccountSuffix'))]",
@@ -144,7 +145,7 @@
       "properties": {
         "publicIPAllocationMethod": "Dynamic",
         "dnsSettings": {
-          "domainNameLabel": "[variables('namingInfix')]"
+          "domainNameLabel": "[variables('longNamingInfix')]"
         }
       }
     },
