@@ -64,7 +64,7 @@
                          "Standard_DS12",
                          "Standard_DS13",
                          "Standard_DS14"
-                        ]
+                        ],
       "metadata":{
         "description":"Size of VMs in the VM Scale Set."
       }
@@ -129,7 +129,9 @@
     "apiVersion":"2015-06-15",
     "vmssApiVersion":"2016-03-30",
     "resourceLocation": "[parameters('location')]",
-    "storageAccountType":"Standard_LRS",
+    "storageAccountTypes": ["Premium_LRS", "Standard_LRS"],
+    "saTypeIndex": "[length(replace(substring(parameters('vmSku'), 10, 1), 'S', ''))]",
+    "storageAccountType":"[variables('storageAccountTypes')[variables('saTypeIndex')]]",
     "saCount":5,
     "namingInfix": "[toLower(substring(concat(parameters('vmssName'), uniqueString(resourceGroup().id)), 0, 9))]",
     "longNamingInfix": "[toLower(parameters('vmssName'))]",
