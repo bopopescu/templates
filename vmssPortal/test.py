@@ -16,7 +16,7 @@ NAMING_INFIX = "longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
 
 parameters_json_base = {"location": {"value": "westus"},
                         "vmSku": {"value": "Standard_D1_v2"},
-                        "instanceCount": {"value": 2},
+                        "instanceCount": {"value": "2"},
                         "username": {"value": "negat"}}
 
 parameters_json = {}
@@ -62,7 +62,7 @@ def test_linux(linux_image, auth_type, local_naming_infix, wl):
 
 
     res = azurerm.deploy_template(access_token, subscription_id, rg_name, dep_name, json_string, cur_parameters_json_string)
-    print(res.text)
+    #print(res.text)
 
     while True:
         time.sleep(10)
