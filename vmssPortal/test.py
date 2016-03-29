@@ -38,6 +38,13 @@ with open('windows.json', 'r') as windows_file:
 linux_images = linux_json["parameters"]["image"]["allowedValues"]
 windows_images = windows_json["parameters"]["WindowsServerVersion"]["allowedValues"]
 
+linux_locations = linux_json["parameters"]["location"]["allowedValues"]
+windows_locations = windows_json["parameters"]["location"]["allowedValues"]
+
+#linux_skus = linux_json["parameters"]["vmSku"]["allowedValues"]
+#windows_skus = windows_json["parameters"]["vmSku"]["allowedValues"]
+#vmSkus = ["Standard_A0", "Standard_A10", "Standard_D1", "Standard_D11", "Standard_D1_v2", "Standard_D11_v2", "Standard_DS1", "Standard_DS11"]
+
 access_token = azurerm.get_access_token(tenant_id, application_id, application_secret)
 
 def test_linux(linux_image, auth_type, local_naming_infix, wl):
