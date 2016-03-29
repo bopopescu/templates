@@ -19,7 +19,7 @@
 	  "southeastasia",
 	  "japaneast",
 	  "australiaeast"
-      ],
+      ]
     },
     "vmSku":{
       "type":"string",
