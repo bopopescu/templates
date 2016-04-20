@@ -17,11 +17,11 @@
     },
     "WindowsServerVersion":{
       "type":"string",
-      "defaultValue": "2012-R2-Datacenter",
+      "defaultValue": "Win2012R2Datacenter",
       "allowedValues":[
-          "2012-R2-Datacenter",
-          "2012-Datacenter",
-          "2008-R2-SP1"
+          "Win2012R2Datacenter",
+          "Win2012Datacenter",
+          "Win2008R2SP1"
       ],
       "metadata":{
         "description":"The Windows Server version for VMs in the scale set."
@@ -90,14 +90,23 @@
     "nicName":"[concat(variables('namingInfix'), 'nic')]",
     "ipConfigName":"[concat(variables('namingInfix'), 'ipconfig')]",
     "frontEndIPConfigID":"[concat(variables('lbID'),'/frontendIPConfigurations/loadBalancerFrontEnd')]",
-    "imageReference":{
-      "publisher":"MicrosoftWindowsServer",
-      "offer":"WindowsServer",
-      "sku":"[parameters('WindowsServerVersion')]",
-      "version":"latest"
-    }
+
+    "imageRefDepName":"imageRefDep"
+
   },
   "resources":[
+    {
+      "name":"[variables('imageRefDepName')]",
+      "type":"Microsoft.Resources/deployments",
+      "apiVersion":"2015-11-01",
+      "properties":{
+        "mode":"Incremental",
+        "templateLink":{
+          "uri":"https://raw.githubusercontent.com/gatneil/azure-rest-api-specs/aliases/arm-compute/quickstart-templates/aliases.json",
+          "contentVersion":"1.0.0.0"
+        }
+      }
+    },
     {
       "type":"Microsoft.Network/virtualNetworks",
       "name":"[variables('virtualNetworkName')]",
@@ -192,7 +201,8 @@
       "dependsOn":[
         "storageLoop",
         "[concat('Microsoft.Network/loadBalancers/', variables('loadBalancerName'))]",
-        "[concat('Microsoft.Network/virtualNetworks/', variables('virtualNetworkName'))]"
+        "[concat('Microsoft.Network/virtualNetworks/', variables('virtualNetworkName'))]",
+        "[concat('Microsoft.Resources/deployments/', variables('imageRefDepName'))]"
       ],
       "sku":{
         "name":"[parameters('vmSku')]",
@@ -218,7 +228,7 @@
               "caching":"ReadOnly",
               "createOption":"FromImage"
             },
-            "imageReference":"[variables('imageReference')]"
+            "imageReference": "[reference(variables('imageRefDepName')).outputs['aliases']['value']['Windows'][parameters('WindowsServerVersion')]]"
           },
           "osProfile":{
             "computerNamePrefix":"[variables('namingInfix')]",

@@ -12,7 +12,8 @@ from password import *
 from sshpublickey import *
 
 AUTH_TYPES = ["password", "sshPublicKey"]
-NAMING_INFIX = "longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong"[0:61-16]
+#NAMING_INFIX = "longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong"[0:61-16]
+NAMING_INFIX = "negatportalvmss"
 
 parameters_json_base = {"location": {"value": "westus"},
                         "vmSku": {"value": "Standard_D1_v2"},
@@ -38,8 +39,8 @@ with open('windows.json', 'r') as windows_file:
 linux_images = linux_json["parameters"]["image"]["allowedValues"]
 windows_images = windows_json["parameters"]["WindowsServerVersion"]["allowedValues"]
 
-linux_locations = linux_json["parameters"]["location"]["allowedValues"]
-windows_locations = windows_json["parameters"]["location"]["allowedValues"]
+#linux_locations = linux_json["parameters"]["location"]["allowedValues"]
+#windows_locations = windows_json["parameters"]["location"]["allowedValues"]
 
 #linux_skus = linux_json["parameters"]["vmSku"]["allowedValues"]
 #windows_skus = windows_json["parameters"]["vmSku"]["allowedValues"]
@@ -69,7 +70,7 @@ def test_linux(linux_image, auth_type, local_naming_infix, wl):
 
 
     res = azurerm.deploy_template(access_token, subscription_id, rg_name, dep_name, json_string, cur_parameters_json_string)
-    #print(res.text)
+    print(res.text)
 
     while True:
         time.sleep(10)
