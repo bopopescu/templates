@@ -259,7 +259,7 @@
         }
       ]
     },
-    "autoscalePropertiesBlock": "[concat(variables('autoscalePropertiesBlock'), parameters('autoscaleYesOrNo'))]",
+    "autoscalePropertiesBlock": "[variables(concat('autoscalePropertiesBlock', parameters('autoscaleYesOrNo')))]",
     "imageCentOs7.2": {
       "publisher": "OpenLogic",
       "offer": "CentOS",
