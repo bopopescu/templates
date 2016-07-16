@@ -118,7 +118,7 @@
     "wadcfgxstart": "[concat(variables('wadlogs'),variables('wadperfcounters1'),variables('wadperfcounters2'),'<Metrics resourceId=\"')]",
     "wadcfgxend": "[concat('\"><MetricAggregation scheduledTransferPeriod=\"PT1H\"/><MetricAggregation scheduledTransferPeriod=\"PT1M\"/></Metrics></DiagnosticMonitorConfiguration></WadCfg>')]",
 
-    "diagnosticsSAName": "[concat(variables('namingInfix'), 'diagsa')]",
+    "diagnosticsSAName": "[concat(variables('uniqueStringArray')[0], variables('namingInfix'), 'di')]",
 
 
     "imageCentOs7.2":{
