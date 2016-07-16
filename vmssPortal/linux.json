@@ -33,9 +33,9 @@
     "vmssName":{
       "type":"string",
       "metadata":{
-        "description":"String used as a base for naming resources. Must be 3-57 characters in length and globally unique across Azure. A hash is prepended to this string for some resources, and resource-specific information is appended."
+        "description":"String used as a base for naming resources. Must be 3-61 characters in length and globally unique across Azure. A hash is prepended to this string for some resources, and resource-specific information is appended."
       },
-      "maxLength": 57
+      "maxLength": 61
     },
     "instanceCount":{
       "type":"string",
@@ -118,7 +118,7 @@
     "wadcfgxstart": "[concat(variables('wadlogs'),variables('wadperfcounters1'),variables('wadperfcounters2'),'<Metrics resourceId=\"')]",
     "wadcfgxend": "[concat('\"><MetricAggregation scheduledTransferPeriod=\"PT1H\"/><MetricAggregation scheduledTransferPeriod=\"PT1M\"/></Metrics></DiagnosticMonitorConfiguration></WadCfg>')]",
 
-    "diagnosticsSAName": "[concat(variables('uniqueStringArray')[0], variables('newStorageAccountSuffix'), 'diag')]",
+    "diagnosticsSAName": "[concat(variables('namingInfix'), 'diagSA')]",
 
 
     "imageCentOs7.2":{
