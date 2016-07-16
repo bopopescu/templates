@@ -33,9 +33,9 @@
     "vmssName":{
       "type":"string",
       "metadata":{
-        "description":"String used as a base for naming resources. Must be 3-61 characters in length and globally unique across Azure. A hash is prepended to this string for some resources, and resource-specific information is appended."
+        "description":"String used as a base for naming resources. Must be 3-57 characters in length and globally unique across Azure. A hash is prepended to this string for some resources, and resource-specific information is appended."
       },
-      "maxLength": 61
+      "maxLength": 57
     },
     "instanceCount":{
       "type":"string",
@@ -117,6 +117,8 @@
     "wadperfcounters2": "<PerformanceCounterConfiguration counterSpecifier=\"\\PhysicalDisk\\BytesPerSecond\" sampleRate=\"PT15S\" unit=\"BytesPerSecond\"><annotation displayName=\"Disk total bytes\" locale=\"en-us\"/></PerformanceCounterConfiguration><PerformanceCounterConfiguration counterSpecifier=\"\\PhysicalDisk\\ReadBytesPerSecond\" sampleRate=\"PT15S\" unit=\"BytesPerSecond\"><annotation displayName=\"Disk read guest OS\" locale=\"en-us\"/></PerformanceCounterConfiguration><PerformanceCounterConfiguration counterSpecifier=\"\\PhysicalDisk\\WriteBytesPerSecond\" sampleRate=\"PT15S\" unit=\"BytesPerSecond\"><annotation displayName=\"Disk write guest OS\" locale=\"en-us\"/></PerformanceCounterConfiguration><PerformanceCounterConfiguration counterSpecifier=\"\\PhysicalDisk\\TransfersPerSecond\" sampleRate=\"PT15S\" unit=\"CountPerSecond\"><annotation displayName=\"Disk transfers\" locale=\"en-us\"/></PerformanceCounterConfiguration><PerformanceCounterConfiguration counterSpecifier=\"\\PhysicalDisk\\ReadsPerSecond\" sampleRate=\"PT15S\" unit=\"CountPerSecond\"><annotation displayName=\"Disk reads\" locale=\"en-us\"/></PerformanceCounterConfiguration><PerformanceCounterConfiguration counterSpecifier=\"\\PhysicalDisk\\WritesPerSecond\" sampleRate=\"PT15S\" unit=\"CountPerSecond\"><annotation displayName=\"Disk writes\" locale=\"en-us\"/></PerformanceCounterConfiguration><PerformanceCounterConfiguration counterSpecifier=\"\\PhysicalDisk\\AverageReadTime\" sampleRate=\"PT15S\" unit=\"Seconds\"><annotation displayName=\"Disk read time\" locale=\"en-us\"/></PerformanceCounterConfiguration><PerformanceCounterConfiguration counterSpecifier=\"\\PhysicalDisk\\AverageWriteTime\" sampleRate=\"PT15S\" unit=\"Seconds\"><annotation displayName=\"Disk write time\" locale=\"en-us\"/></PerformanceCounterConfiguration><PerformanceCounterConfiguration counterSpecifier=\"\\PhysicalDisk\\AverageTransferTime\" sampleRate=\"PT15S\" unit=\"Seconds\"><annotation displayName=\"Disk transfer time\" locale=\"en-us\"/></PerformanceCounterConfiguration><PerformanceCounterConfiguration counterSpecifier=\"\\PhysicalDisk\\AverageDiskQueueLength\" sampleRate=\"PT15S\" unit=\"Count\"><annotation displayName=\"Disk queue length\" locale=\"en-us\"/></PerformanceCounterConfiguration></PerformanceCounters>",
     "wadcfgxstart": "[concat(variables('wadlogs'),variables('wadperfcounters1'),variables('wadperfcounters2'),'<Metrics resourceId=\"')]",
     "wadcfgxend": "[concat('\"><MetricAggregation scheduledTransferPeriod=\"PT1H\"/><MetricAggregation scheduledTransferPeriod=\"PT1M\"/></Metrics></DiagnosticMonitorConfiguration></WadCfg>')]",
+
+    "diagnosticsSAName": "[concat(variables('uniqueStringArray')[0], variables('newStorageAccountSuffix'), 'diag')]",
 
 
     "imageCentOs7.2":{
@@ -226,6 +228,15 @@
       },
       "properties":{
         "accountType":"[variables('storageAccountType')]"
+      }
+    },
+    {
+      "type":"Microsoft.Storage/storageAccounts",
+      "name":"[variables('diagnosticsSAName')]",
+      "location":"[variables('resourceLocation')]",
+      "apiVersion":"[variables('apiVersion')]",
+      "properties":{
+        "accountType":"Standard_LRS"
       }
     },
     {
@@ -358,11 +369,11 @@
                   "autoUpgradeMinorVersion": true,
                   "settings": {
                     "xmlCfg": "[base64(concat(variables('wadcfgxstart'),resourceId('Microsoft.Compute/virtualMachineScaleSets', variables('namingInfix')),variables('wadcfgxend')))]",
-                    "storageAccount": "[concat(variables('uniqueStringArray')[0], variables('newStorageAccountSuffix'))]"
+                    "storageAccount": "[variables('diagnosticsSAName')]"
                   },
                   "protectedSettings": {
-                    "storageAccountName": "[concat(variables('uniqueStringArray')[0], variables('newStorageAccountSuffix'))]",
-                    "storageAccountKey": "[listkeys(resourceId('Microsoft.Storage/storageAccounts', concat(variables('uniqueStringArray')[0], variables('newStorageAccountSuffix'))), variables('apiVersion')).key1]",
+                    "storageAccountName": "[variables('diagnosticsSAName')]",
+                    "storageAccountKey": "[listkeys(resourceId('Microsoft.Storage/storageAccounts', variables('diagnosticsSAName')), variables('apiVersion')).key1]",
                     "storageAccountEndPoint": "https://core.windows.net"
                   }
                 }
