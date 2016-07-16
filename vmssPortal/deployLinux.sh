@@ -25,6 +25,9 @@ echo "      \"value\": \"negat\"" >> azuredeploy.parameters.json
 echo "    }," >> azuredeploy.parameters.json
 echo "    \"password\": {" >> azuredeploy.parameters.json
 echo "      \"value\": \"P4ssw0rd\"" >> azuredeploy.parameters.json
+echo "    }," >> azuredeploy.parameters.json
+echo "    \"autoscaleYesOrNo\": {" >> azuredeploy.parameters.json
+echo "      \"value\": \"No\"" >> azuredeploy.parameters.json
 echo "    }" >> azuredeploy.parameters.json
 echo "  }" >> azuredeploy.parameters.json
 echo "}" >> azuredeploy.parameters.json
