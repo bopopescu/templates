@@ -213,7 +213,7 @@
 	    }
 	},
 	"osProfileReference": "[variables(concat('osProfile', parameters('authenticationType')))]"
-    }
+    },
 
     
     "resources": [
