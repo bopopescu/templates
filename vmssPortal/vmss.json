@@ -52,8 +52,9 @@
 	},
 	"authenticationType": {
 	    "type": "string",
+	    "allowedValues": ["password", "sshPublicKey"],
 	    "metadata": {
-		"description": "password or ssh key"
+		"description": "password or sshPublicKey"
 	    }
 	},
 	"username": {
