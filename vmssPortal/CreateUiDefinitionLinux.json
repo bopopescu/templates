@@ -233,24 +233,8 @@
 			    ]
 			},
 			"visible": true
-		    }
-		]
-	    },
-	    
-	    {
+		    },
 
-		"name": "autoscaleSettings",
-		"label": "Autoscale Settings",
-		"subLabel":
-		{
-                    "preValidation": "Configure Autoscale",
-                    "postValidation": "Done"
-		}
-		,
-		"bladeTitle": "Configure Autoscale",
-		"elements": [
-
-		    
 		    {
 			"name": "autoscaleMin",
 			"type": "Microsoft.Common.TextBox",
@@ -266,10 +250,8 @@
 		    }
 		    
 
-		    
 		]
 	    }
-            
 
 	],
 	"outputs":
