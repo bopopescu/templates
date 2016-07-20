@@ -226,7 +226,7 @@
 				    "label": "Yes",
 				    "value": "Yes"
 				},
-								{
+				{
 				    "label": "No",
 				    "value": "No"
 				}
@@ -246,7 +246,7 @@
 			    "regex": "^[0-9]+$",
 			    "validationMessage": "Must be a non-negative integer."
 			},
-			"visible": "[equals(true, steps('autoscaleYesOrNo').value)]"
+			"visible": "[equals(true, steps('vmssServiceConfig').autoscaleMin)]"
 		    }
 
 
