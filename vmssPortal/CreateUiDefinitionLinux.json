@@ -262,7 +262,7 @@
 			    "regex": "^[0-9]+$",
 			    "validationMessage": "Must be a non-negative integer."
 			},
-			"visible": "[equals('true', string(steps('vmssServiceConfig').autoscaleMin))]"
+			"visible": "[equals('Yes', steps('vmssServiceConfig').autoscaleYesOrNo)]"
 		    }
 		    
 
