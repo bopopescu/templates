@@ -17,13 +17,34 @@
                     "validationMessage": "Only alphanumeric characters are allowed.  The value must be 1-61 characters long and cannot start with a number."
 		}
             }
+	    ,
+	    {
+		"name": "osType",
+		"type": "Microsoft.Common.OptionsGroup",
+		"label": "OS Type",
+		"defaultValue": "Windows",
+		"toolTip": "",
+		"constraints": {
+		    "allowedValues":
+		    [
+			{
+			    "label": "Windows",
+			    "value": "Windows"
+			},
+			{
+			    "label": "Linux",
+			    "value": "Linux"
+			}
+		    ]
+		}
+            }
             ,
             {
 		"name": "adminUsername",
 		"type": "Microsoft.Compute.UserNameTextBox",
 		"label": "User name",
 		"toolTip": "Admin user name for the virtual machines.",
-		"osPlatform": "Linux",
+		"osPlatform": "[basics('osType')]",
 		"constraints":
 		{
                     "required": true
@@ -62,7 +83,7 @@
                     "hidePassword": false
 		}
 		,
-		"osPlatform": "Linux"
+		"osPlatform": "[basics('osType')]"
             }
         ],
 
@@ -208,7 +229,7 @@
 			    ]
 			}
 			,
-			"osPlatform": "Linux",
+			"osPlatform": "[basics('osType')]",
 			"count": "[steps('vmssServiceConfig').instanceCount]"
 
 		    },
@@ -231,8 +252,7 @@
 				    "value": "No"
 				}
 			    ]
-			},
-			"visible": true
+			}
 		    },
 
 		    {
