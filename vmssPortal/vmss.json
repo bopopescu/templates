@@ -15,6 +15,10 @@
 		"description": "Size of VMs in the VM Scale Set."
 	    }
 	},
+	"osType": {
+	    "type": "string",
+	    "allowedValues": ["Windows", "Linux"]
+	},
 	"image": {
 	    "type": "string",
 	    "allowedValues": [
@@ -128,6 +132,7 @@
 	    "autoscaleMin": {"value": "[parameters('autoscaleMin')]"},
 	    "vmssName": {"value": "[parameters('vmssName')]"},
 	    "autoscaleMax": {"value": "[parameters('autoscaleMax')]"},
+	    "osType": {"value": "[parameters('osType')]"},
 	    "image": {"value": "[parameters('image')]"},
 	    "scaleOutCPUPercentageThreshold": {"value": "[int(parameters('scaleOutCPUPercentageThreshold'))]"},
 	    "vmSku": {"value": "[parameters('vmSku')]"},

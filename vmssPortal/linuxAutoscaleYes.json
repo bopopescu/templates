@@ -15,6 +15,10 @@
 		"description": "Size of VMs in the VM Scale Set."
 	    }
 	},
+	"osType": {
+	    "type": "string",
+	    "allowedValues": ["Windows", "Linux"]
+	},
 	"image": {
 	    "type": "string",
 	    "allowedValues": [
