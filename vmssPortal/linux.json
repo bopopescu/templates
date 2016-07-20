@@ -87,16 +87,16 @@
 	    "defaultValue": "1"
 	},
 	"scaleOutCPUPercentageThreshold": {
-	    "type": "int",
-	    "defaultValue": 75
+	    "type": "string",
+	    "defaultValue": "75"
 	},
 	"scaleOutInterval": {
 	    "type": "string",
 	    "defaultValue": "1"
 	},
 	"scaleInCPUPercentageThreshold": {
-	    "type": "int",
-	    "defaultValue": 25
+	    "type": "string",
+	    "defaultValue": "25"
 	},
 	"scaleInInterval": {
 	    "type": "string",
@@ -129,10 +129,10 @@
 	    "vmssName": {"value": "[parameters('vmssName')]"},
 	    "autoscaleMax": {"value": "[parameters('autoscaleMax')]"},
 	    "image": {"value": "[parameters('image')]"},
-	    "scaleOutCPUPercentageThreshold": {"value": "[parameters('scaleOutCPUPercentageThreshold')]"},
+	    "scaleOutCPUPercentageThreshold": {"value": "[int(parameters('scaleOutCPUPercentageThreshold'))]"},
 	    "vmSku": {"value": "[parameters('vmSku')]"},
 	    "location": {"value": "[parameters('location')]"},
-	    "scaleInCPUPercentageThreshold": {"value": "[parameters('scaleInCPUPercentageThreshold')]"},
+	    "scaleInCPUPercentageThreshold": {"value": "[int(parameters('scaleInCPUPercentageThreshold'))]"},
 	    "password": {"value": "[parameters('password')]"},
 	    "sshPublicKey": {"value": "[parameters('sshPublicKey')]"}
 	}
