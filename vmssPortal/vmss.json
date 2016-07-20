@@ -108,7 +108,7 @@
 	}
     },
     "variables":{
-	"baseTemplateUri":"https://raw.githubusercontent.com/gatneil/templates/master/vmssPortal/linuxAutoscale",
+	"baseTemplateUri":"https://raw.githubusercontent.com/gatneil/templates/combine/vmssPortal/autoscale",
 
 	"parametersAutoscaleNo": {
 	    "username": {"value": "[parameters('username')]"},
