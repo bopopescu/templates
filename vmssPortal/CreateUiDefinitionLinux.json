@@ -212,14 +212,14 @@
 			"count": "[steps('vmssServiceConfig').instanceCount]"
 
 		    },
-		    
+
 		    {
 			"name": "autoscaleYesOrNo",
 			"type": "Microsoft.Common.OptionsGroup",
 			"label": "Autoscale: Yes or No?",
 			"defaultValue": "Yes",
 			"toolTip": "",
-			"contstraints": {
+			"constraints": {
 			    "allowedValues":
 			    [
 				{
@@ -233,7 +233,23 @@
 			    ]
 			},
 			"visible": true
-		    },
+		    }
+		]
+	    },
+	    
+	    {
+
+		"name": "autoscaleSettings",
+		"label": "Autoscale Settings",
+		"subLabel":
+		{
+                    "preValidation": "Configure Autoscale",
+                    "postValidation": "Done"
+		}
+		,
+		"bladeTitle": "Configure Autoscale",
+		"elements": [
+
 		    
 		    {
 			"name": "autoscaleMin",
@@ -246,18 +262,18 @@
 			    "regex": "^[0-9]+$",
 			    "validationMessage": "Must be a non-negative integer."
 			},
-			"visible": "[equals(true, steps('vmssServiceConfig').autoscaleMin)]"
+			"visible": "[equals('true', string(steps('vmssServiceConfig').autoscaleMin))]"
 		    }
-
-
+		    
 
 		    
 		]
-            }
+	    }
+            
 
-        ],
-        "outputs":
-        {
+	],
+	"outputs":
+	{
             "vmSku": "[steps('vmssServiceConfig').vmSku]",
             "image": "[steps('vmssServiceConfig').image]",
             "vmssName": "[basics('vmssName')]",
@@ -269,7 +285,9 @@
             "location": "[location()]",
 	    "autosscaleYesOrNo": "[steps('vmssServiceConfig').autoscaleYesOrNo]",
 	    "autosscaleMin": "[steps('vmssServiceConfig').autoscaleMin]"
-        }
+        }	
+
+
 
 
     }
