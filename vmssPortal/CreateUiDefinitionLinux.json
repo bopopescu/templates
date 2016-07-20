@@ -266,7 +266,9 @@
             "authenticationType": "[basics('vmssAuth').authenticationType]",
             "sshPublicKey": "[basics('vmssAuth').sshPublicKey]",
             "username": "[basics('adminUsername')]",
-            "location": "[location()]"
+            "location": "[location()]",
+	    "autosscaleYesOrNo": "[steps('vmssServiceConfig').autoscaleYesOrNo]",
+	    "autosscaleMin": "[steps('vmssServiceConfig').autoscaleMin]"
         }
 
 
