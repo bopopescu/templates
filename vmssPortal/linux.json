@@ -80,25 +80,25 @@
 	},
 	"autoscaleMax": {
 	    "type": "string",
-	    "defaultValue": "1"
+	    "defaultValue": "10"
 	},
 	"autoscaleDefault": {
 	    "type": "string",
 	    "defaultValue": "1"
 	},
-	"scaleUpCPUPercentageThreshold": {
+	"scaleOutCPUPercentageThreshold": {
 	    "type": "int",
 	    "defaultValue": 75
 	},
-	"scaleUpInterval": {
+	"scaleOutInterval": {
 	    "type": "string",
 	    "defaultValue": "1"
 	},
-	"scaleDownCPUPercentageThreshold": {
+	"scaleInCPUPercentageThreshold": {
 	    "type": "int",
 	    "defaultValue": 25
 	},
-	"scaleDownInterval": {
+	"scaleInInterval": {
 	    "type": "string",
 	    "defaultValue": "1"
 	}
@@ -122,17 +122,17 @@
 	    "username": {"value": "[parameters('username')]"},
 	    "autoscaleDefault": {"value": "[parameters('autoscaleDefault')]"},
 	    "instanceCount": {"value": "[parameters('instanceCount')]"},
-	    "scaleDownInterval": {"value": "[parameters('scaleDownInterval')]"},
-	    "scaleUpInterval": {"value": "[parameters('scaleUpInterval')]"},
+	    "scaleInInterval": {"value": "[parameters('scaleInInterval')]"},
+	    "scaleOutInterval": {"value": "[parameters('scaleOutInterval')]"},
 	    "authenticationType": {"value": "[parameters('authenticationType')]"},
 	    "autoscaleMin": {"value": "[parameters('autoscaleMin')]"},
 	    "vmssName": {"value": "[parameters('vmssName')]"},
 	    "autoscaleMax": {"value": "[parameters('autoscaleMax')]"},
 	    "image": {"value": "[parameters('image')]"},
-	    "scaleUpCPUPercentageThreshold": {"value": "[parameters('scaleUpCPUPercentageThreshold')]"},
+	    "scaleOutCPUPercentageThreshold": {"value": "[parameters('scaleOutCPUPercentageThreshold')]"},
 	    "vmSku": {"value": "[parameters('vmSku')]"},
 	    "location": {"value": "[parameters('location')]"},
-	    "scaleDownCPUPercentageThreshold": {"value": "[parameters('scaleDownCPUPercentageThreshold')]"},
+	    "scaleInCPUPercentageThreshold": {"value": "[parameters('scaleInCPUPercentageThreshold')]"},
 	    "password": {"value": "[parameters('password')]"},
 	    "sshPublicKey": {"value": "[parameters('sshPublicKey')]"}
 	}

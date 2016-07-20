@@ -75,25 +75,25 @@
 	},
 	"autoscaleMax": {
 	    "type": "string",
-	    "defaultValue": "1"
+	    "defaultValue": "10"
 	},
 	"autoscaleDefault": {
 	    "type": "string",
 	    "defaultValue": "1"
 	},
-	"scaleUpCPUPercentageThreshold": {
+	"scaleOutCPUPercentageThreshold": {
 	    "type": "int",
 	    "defaultValue": 75
 	},
-	"scaleUpInterval": {
+	"scaleOutInterval": {
 	    "type": "string",
 	    "defaultValue": "1"
 	},
-	"scaleDownCPUPercentageThreshold": {
+	"scaleInCPUPercentageThreshold": {
 	    "type": "int",
 	    "defaultValue": 25
 	},
-	"scaleDownInterval": {
+	"scaleInInterval": {
 	    "type": "string",
 	    "defaultValue": "1"
 	}
@@ -435,12 +435,12 @@
 				    "timeWindow": "PT5M",
 				    "timeAggregation": "Average",
 				    "operator": "GreaterThan",
-				    "threshold": "[parameters('scaleUpCPUPercentageThreshold')]"
+				    "threshold": "[parameters('scaleOutCPUPercentageThreshold')]"
 				},
 				"scaleAction": {
 				    "direction": "Increase",
 				    "type": "ChangeCount",
-				    "value": "[parameters('scaleUpInterval')]",
+				    "value": "[parameters('scaleOutInterval')]",
 				    "cooldown": "PT1M"
 				}
 			    },
@@ -454,12 +454,12 @@
 				    "timeWindow": "PT5M",
 				    "timeAggregation": "Average",
 				    "operator": "LessThan",
-				    "threshold": "[parameters('scaleDownCPUPercentageThreshold')]"
+				    "threshold": "[parameters('scaleInCPUPercentageThreshold')]"
 				},
 				"scaleAction": {
 				    "direction": "Decrease",
 				    "type": "ChangeCount",
-				    "value": "[parameters('scaleDownInterval')]",
+				    "value": "[parameters('scaleInInterval')]",
 				    "cooldown": "PT1M"
 				}
 			    }
