@@ -119,6 +119,7 @@
 	    "instanceCount": {"value": "[parameters('instanceCount')]"},
 	    "authenticationType": {"value": "[parameters('authenticationType')]"},
 	    "vmssName": {"value": "[parameters('vmssName')]"},
+	    "osType": {"value": "[parameters('osType')]"},
 	    "image": {"value": "[parameters('image')]"},
 	    "vmSku": {"value": "[parameters('vmSku')]"},
 	    "location": {"value": "[parameters('location')]"},
