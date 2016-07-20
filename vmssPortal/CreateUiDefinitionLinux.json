@@ -353,9 +353,9 @@
 	    "autoscaleMin": "[steps('vmssServiceConfig').autoscaleMin]",
 	    "autoscaleMax": "[steps('vmssServiceConfig').autoscaleMax]",
 	    "autoscaleDefault": "[steps('vmssServiceConfig').autoscaleDefault]",
-	    "scaleOutCPUPercentageThreshold": "[steps('vmssServiceConfig').scaleOutCPUPercentageThreshold]",
+	    "scaleOutCPUPercentageThreshold": "[parse(steps('vmssServiceConfig').scaleOutCPUPercentageThreshold)]",
 	    "scaleOutInterval": "[steps('vmssServiceConfig').scaleOutInterval]",
-	    "scaleInCPUPercentageThreshold": "[steps('vmssServiceConfig').scaleInCPUPercentageThreshold]",
+	    "scaleInCPUPercentageThreshold": "[parse(steps('vmssServiceConfig').scaleInCPUPercentageThreshold)]",
 	    "scaleInInterval": "[steps('vmssServiceConfig').scaleInInterval]"
         }	
 
