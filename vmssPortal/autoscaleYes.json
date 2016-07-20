@@ -247,43 +247,18 @@
 	},
 	"osProfileReference": "[variables(concat('osProfile', parameters('authenticationType')))]",
 
-	"extensionLinux": {
-	    "name": "LinuxDiagnostic",
-	    "properties": {
-		"publisher": "Microsoft.OSTCExtensions",
-		"type": "LinuxDiagnostic",
-		"typeHandlerVersion": "2.3",
-		"autoUpgradeMinorVersion": true,
-		"settings": {
-		    "xmlCfg": "[base64(concat(variables('wadcfgxstart'),resourceId('Microsoft.Compute/virtualMachineScaleSets', variables('namingInfix')),variables('wadcfgxend')))]",
-		    "storageAccount": "[variables('diagnosticsSAName')]"
-		},
-		"protectedSettings": {
-		    "storageAccountName": "[variables('diagnosticsSAName')]",
-		    "storageAccountKey": "[listkeys(resourceId('Microsoft.Storage/storageAccounts', variables('diagnosticsSAName')), variables('apiVersion')).key1]",
-		    "storageAccountEndPoint": "https://core.windows.net"
-		}
-	    }
-	},
+	"extensionNameLinux": "LinuxDiagnostic",
+	"extensionPublisherLinux": "Microsoft.OSTCExtensions",
+	"extensionTypeLinux": "LinuxDiagnostic",
+	"extensionVersionLinux": "2.3",
 
-	"extensionWindows": {
-	    "name": "Microsoft.Insights.VMDiagnosticsSettings",
-	    "properties": {
-		"publisher": "Microsoft.Azure.Diagnostics",
-		"type": "IaaSDiagnostics",
-                "typeHandlerVersion": "1.5",
-                "autoUpgradeMinorVersion": true,
-		"settings": {
-		    "xmlCfg": "[base64(concat(variables('wadcfgxstart'),resourceId('Microsoft.Compute/virtualMachineScaleSets', variables('namingInfix')),variables('wadcfgxend')))]",
-		    "storageAccount": "[variables('diagnosticsSAName')]"
-		},
-		"protectedSettings": {
-		    "storageAccountName": "[variables('diagnosticsSAName')]",
-		    "storageAccountKey": "[listkeys(resourceId('Microsoft.Storage/storageAccounts', variables('diagnosticsSAName')), variables('apiVersion')).key1]",
-		    "storageAccountEndPoint": "https://core.windows.net"
-		}
-	    }
-	}
+	
+	"extensionNameWindows": "Microsoft.Insights.VMDiagnosticsSettings",
+	"extensionPublisherWindows": "Microsoft.Azure.Diagnostics",
+	"extensionTypeWindows": "IaaSDiagnostics",
+	"extensionVersionWindows": "1.5"
+	
+	
     },
 
     
@@ -451,7 +426,27 @@
 			]
 		    },
 		    "extensionProfile": {
-			"extensions": ["[variables(concat('extension', parameters('osType')))]"]
+			"extensions": [
+			    {
+				"name": "[variables(concat('extensionName', parameters('osType')))]",
+				"properties": {
+				    "publisher": "[variables(concat('extensionPublisher', parameters('osType')))]",
+				    "type": "[variables(concat('extensionType', parameters('osType')))]",
+				    "typeHandlerVersion": "[variables(concat('extensionVersion', parameters('osType')))]",
+				    "autoUpgradeMinorVersion": true,
+				    "settings": {
+					"xmlCfg": "[base64(concat(variables('wadcfgxstart'),resourceId('Microsoft.Compute/virtualMachineScaleSets', variables('namingInfix')),variables('wadcfgxend')))]",
+					"storageAccount": "[variables('diagnosticsSAName')]"
+				    },
+				    "protectedSettings": {
+					"storageAccountName": "[variables('diagnosticsSAName')]",
+					"storageAccountKey": "[listkeys(resourceId('Microsoft.Storage/storageAccounts', variables('diagnosticsSAName')), variables('apiVersion')).key1]",
+					"storageAccountEndPoint": "https://core.windows.net"
+				    }
+				}
+			    }
+
+			]
 		    }
 		}
 	    }
