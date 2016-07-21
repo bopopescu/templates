@@ -127,7 +127,7 @@
 	}
     },
     "variables":{
-	"baseTemplateUri":"https://raw.githubusercontent.com/gatneil/templates/combine/vmssPortal/autoscale",
+	"baseTemplateUri":"https://raw.githubusercontent.com/gatneil/templates/logicInTemplate/vmssPortal/autoscale",
 
 	"vmSku": "[concat(parameters('vmSkuWindows'), parameters('vmSkuLinux'))]",
 	"image": "[concat(parameters('imageWindows'), parameters('imageLinux'))]",
