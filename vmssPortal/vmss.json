@@ -8,7 +8,14 @@
 		"description": "location of resources"
 	    }
 	},
-	"vmSku": {
+	"vmSkuWindows": {
+	    "type": "string",
+	    "defaultValue": "Standard_D1_v2",
+	    "metadata": {
+		"description": "Size of VMs in the VM Scale Set."
+	    }
+	},
+	"vmSkuLinux": {
 	    "type": "string",
 	    "defaultValue": "Standard_D1_v2",
 	    "metadata": {
@@ -19,7 +26,18 @@
 	    "type": "string",
 	    "allowedValues": ["Windows", "Linux"]
 	},
-	"image": {
+	"imageWindows": {
+	    "type": "string",
+	    "allowedValues": [
+		"2012-R2-Datacenter",
+		"2012-Datacenter",
+		"2008-R2-SP1"
+	    ],
+	    "metadata": {
+		"description": "The os disk image for the VMs in the scale set."
+	    }
+	},
+	"imageLinux": {
 	    "type": "string",
 	    "allowedValues": [
 		"CentOs7.2",
@@ -28,10 +46,7 @@
 		"OpenSuse13.2",
 		"RHEL7.2",
 		"SLES12-SP1",
-		"Ubuntu14.04.4-LTS",
-		"2012-R2-Datacenter",
-		"2012-Datacenter",
-		"2008-R2-SP1"
+		"Ubuntu14.04.4-LTS"
 	    ],
 	    "metadata": {
 		"description": "The os disk image for the VMs in the scale set."
@@ -114,14 +129,17 @@
     "variables":{
 	"baseTemplateUri":"https://raw.githubusercontent.com/gatneil/templates/combine/vmssPortal/autoscale",
 
+	"vmSku": "[concat(parameters('vmSkuWindows'), parameters('vmSkuLinux'))]",
+	"image": "[concat(parameters('imageWindows'), parameters('imageLinux'))]",
+
 	"parametersAutoscaleNo": {
 	    "username": {"value": "[parameters('username')]"},
 	    "instanceCount": {"value": "[parameters('instanceCount')]"},
 	    "authenticationType": {"value": "[parameters('authenticationType')]"},
 	    "vmssName": {"value": "[parameters('vmssName')]"},
 	    "osType": {"value": "[parameters('osType')]"},
-	    "image": {"value": "[parameters('image')]"},
-	    "vmSku": {"value": "[parameters('vmSku')]"},
+	    "image": {"value": "[variables('image')]"},
+	    "vmSku": {"value": "[variables('vmSku')]"},
 	    "location": {"value": "[parameters('location')]"},
 	    "password": {"value": "[parameters('password')]"},
 	    "sshPublicKey": {"value": "[parameters('sshPublicKey')]"}
@@ -138,9 +156,9 @@
 	    "vmssName": {"value": "[parameters('vmssName')]"},
 	    "autoscaleMax": {"value": "[parameters('autoscaleMax')]"},
 	    "osType": {"value": "[parameters('osType')]"},
-	    "image": {"value": "[parameters('image')]"},
+	    "image": {"value": "[variables('image')]"},
 	    "scaleOutCPUPercentageThreshold": {"value": "[int(parameters('scaleOutCPUPercentageThreshold'))]"},
-	    "vmSku": {"value": "[parameters('vmSku')]"},
+	    "vmSku": {"value": "[variables('vmSku')]"},
 	    "location": {"value": "[parameters('location')]"},
 	    "scaleInCPUPercentageThreshold": {"value": "[int(parameters('scaleInCPUPercentageThreshold'))]"},
 	    "password": {"value": "[parameters('password')]"},
