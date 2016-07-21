@@ -114,7 +114,20 @@
 		"bladeTitle": "Virtual machine scale set service settings",
 		"elements": [
 		    {
-			"name": "image",
+			"name": "imageWindows",
+			"type": "Microsoft.Common.DropDown",
+			"label": "Operating system disk image",
+			"toolTip": "The operating system disk image for the virtual machines in the scale set. WARNING: Provisioning a VM from RHEL or SLES requires a subscription with no spending limit and a verified payment method. Manage at [https://account.windowsazure.com/Subscriptions](https://account.windowsazure.com/Subscriptions)",
+			"constraints": {
+			    "allowedValues": [
+				{"label": "2012-R2-Datacenter", "value": "2012-R2-Datacenter"},
+				{"label": "2012-Datacenter", "value": "2012-Datacenter"},
+				{"label": "2008-R2-SP1", "value": "2008-R2-SP1"}
+			    ]
+			}
+		    },
+		    {
+			"name": "imageLinux",
 			"type": "Microsoft.Common.DropDown",
 			"label": "Operating system disk image",
 			"toolTip": "The operating system disk image for the virtual machines in the scale set. WARNING: Provisioning a VM from RHEL or SLES requires a subscription with no spending limit and a verified payment method. Manage at [https://account.windowsazure.com/Subscriptions](https://account.windowsazure.com/Subscriptions)",
@@ -414,7 +427,7 @@
 	],
 	"outputs": {
 	    "vmSku": "[steps('vmssServiceConfig')[concat('vmSku', basics('osType'))]]",
-	    "image": "[steps('vmssServiceConfig').image]",
+	    "image": "[steps('vmssServiceConfig')[concat('image', basics('osType'))]]",
 	    "vmssName": "[basics('vmssName')]",
 	    "instanceCount": "[steps('vmssServiceConfig').instanceCount]",
 	    "password": "[basics(concat('vmssAuth', basics('osType'))).password]",
