@@ -413,7 +413,7 @@
 	    }
 	],
 	"outputs": {
-	    "vmSku": "[steps(concat('vmssServiceConfig', basics('osType'))).vmSku]",
+	    "vmSku": "[steps('vmssServiceConfig')[concat('vmSku', basics('osType'))]]",
 	    "image": "[steps('vmssServiceConfig').image]",
 	    "vmssName": "[basics('vmssName')]",
 	    "instanceCount": "[steps('vmssServiceConfig').instanceCount]",
