@@ -428,13 +428,13 @@
 	    }
 	],
 	"outputs": {
-	    "vmSku": "[steps('vmssServiceConfig')[concat('vmSku', basics('osType'))]]",
-	    "image": "[steps('vmssServiceConfig')[concat('image', basics('osType'))]]",
+	    "vmSku": "[coalesce(steps('vmssServiceConfig'),vmSkuWindows, steps('vmssServiceConfig').vmSkuLinux)]",
+	    "image": "[coalesce(steps('vmssServiceConfig'),imageWindows, steps('vmssServiceConfig').imageLinux)]",
 	    "vmssName": "[basics('vmssName')]",
 	    "instanceCount": "[steps('vmssServiceConfig').instanceCount]",
 	    "password": "[basics(concat('vmssAuth', basics('osType'))).password]",
-	    "authenticationType": "[basics('vmssAuth').authenticationType]",
-	    "sshPublicKey": "[basics('vmssAuth').sshPublicKey]",
+	    "authenticationType": "[basics(concat('vmssAuth', basics('osType'))).authenticationType]",
+	    "sshPublicKey": "[basics(concat('vmssAuth', basics('osType'))).sshPublicKey]",
 	    "username": "[basics(concat('adminUsername', basics('osType')))]",
 	    "location": "[location()]",
 	    "autoscaleYesOrNo": "[steps('vmssServiceConfig').autoscaleYesOrNo]",
