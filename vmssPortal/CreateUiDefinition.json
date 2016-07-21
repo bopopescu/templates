@@ -124,7 +124,8 @@
 				{"label": "2012-Datacenter", "value": "2012-Datacenter"},
 				{"label": "2008-R2-SP1", "value": "2008-R2-SP1"}
 			    ]
-			}
+			},
+			"visible": "[equals('Windows', basics('osType'))]"
 		    },
 		    {
 			"name": "imageLinux",
@@ -162,7 +163,8 @@
 				    "value": "Ubuntu14.04.4-LTS"
 				}
 			    ]
-			}
+			},
+			"visible": "[equals('Linux', basics('osType'))]",
 		    },
 		    {
 			"name": "instanceCount",
