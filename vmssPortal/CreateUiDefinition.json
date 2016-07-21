@@ -428,6 +428,7 @@
 	    }
 	],
 	"outputs": {
+	    "osType": "[basics('osType')]",
 	    "vmSku": "[coalesce(steps('vmssServiceConfig').vmSkuWindows, steps('vmssServiceConfig').vmSkuLinux)]",
 	    "image": "[coalesce(steps('vmssServiceConfig').imageWindows, steps('vmssServiceConfig').imageLinux)]",
 	    "vmssName": "[basics('vmssName')]",
