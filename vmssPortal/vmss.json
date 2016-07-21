@@ -112,7 +112,7 @@
 	}
     },
     "variables":{
-	"baseTemplateUri":"https://raw.githubusercontent.com/gatneil/templates/combine/vmssPortal/autoscale",
+	"baseTemplateUri":"https://raw.githubusercontent.com/gatneil/templates/master/vmssPortal/autoscale",
 
 	"parametersAutoscaleNo": {
 	    "username": {"value": "[parameters('username')]"},
