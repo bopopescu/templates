@@ -164,7 +164,7 @@
 				}
 			    ]
 			},
-			"visible": "[equals('Linux', basics('osType'))]",
+			"visible": "[equals('Linux', basics('osType'))]"
 		    },
 		    {
 			"name": "instanceCount",
