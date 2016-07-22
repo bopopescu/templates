@@ -251,9 +251,9 @@
 			}
 		    },
 		    {
-			"name": "autoscaleMinNumVMs",
+			"name": "autoscaleMin",
 			"type": "Microsoft.Common.TextBox",
-			"label": "Autoscale min",
+			"label": "Autoscale minimum number of VMs",
 			"defaultValue": "1",
 			"toolTip": "The minimum value for autoscale on this scale set.",
 			"constraints": {
@@ -264,9 +264,9 @@
 			"visible": "[equals('Yes', steps('vmssServiceConfig').autoscaleYesOrNo)]"
 		    },
 		    {
-			"name": "autoscaleMaxNumVMs",
+			"name": "autoscaleMax",
 			"type": "Microsoft.Common.TextBox",
-			"label": "Autoscale max",
+			"label": "Autoscale maximum number of VMs",
 			"defaultValue": "10",
 			"toolTip": "The maximum value for autoscale on this scale set.",
 			"constraints": {
@@ -277,9 +277,9 @@
 			"visible": "[equals('Yes', steps('vmssServiceConfig').autoscaleYesOrNo)]"
 		    },
 		    {
-			"name": "autoscaleDefaultNumVMs",
+			"name": "autoscaleDefault",
 			"type": "Microsoft.Common.TextBox",
-			"label": "Autoscale default",
+			"label": "Autoscale default number of VMs",
 			"defaultValue": "1",
 			"toolTip": "The default value for autoscale on this scale set.",
 			"constraints": {
@@ -303,9 +303,9 @@
 			"visible": "[equals('Yes', steps('vmssServiceConfig').autoscaleYesOrNo)]"
 		    },
 		    {
-			"name": "numVMsToIncreaseByOnScaleOut",
+			"name": "scaleOutInterval",
 			"type": "Microsoft.Common.TextBox",
-			"label": "Scale out interval",
+			"label": "Number of VMs to increase by on scale out",
 			"defaultValue": "1",
 			"toolTip": "The number of virtual machines to add to the scale set when the scale out autoscale rule is triggered.",
 			"constraints": {
@@ -318,7 +318,7 @@
 		    {
 			"name": "scaleInCPUPercentageThreshold",
 			"type": "Microsoft.Common.TextBox",
-			"label": "Scale in CPU percentage threshold",
+			"label": "Scale out CPU percentage threshold",
 			"defaultValue": "25",
 			"toolTip": "The CPU usage percentage threshold for triggering the scale in autoscale rule.",
 			"constraints": {
@@ -329,9 +329,9 @@
 			"visible": "[equals('Yes', steps('vmssServiceConfig').autoscaleYesOrNo)]"
 		    },
 		    {
-			"name": "numVMsToDecreaseByOnScaleIn",
+			"name": "scaleInInterval",
 			"type": "Microsoft.Common.TextBox",
-			"label": "Scale in interval",
+			"label": "Number of VMs to decrease by on scale in",
 			"defaultValue": "1",
 			"toolTip": "The number of virtual machines to remove from the scale set when the scale in autoscale rule is triggered.",
 			"constraints": {
@@ -356,13 +356,13 @@
 	    "username": "[basics(concat('adminUsername', basics('osType')))]",
 	    "location": "[location()]",
 	    "autoscaleYesOrNo": "[steps('vmssServiceConfig').autoscaleYesOrNo]",
-	    "autoscaleMinNumVMs": "[steps('vmssServiceConfig').autoscaleMin]",
-	    "autoscaleMaxNumVMs": "[steps('vmssServiceConfig').autoscaleMax]",
-	    "autoscaleDefaultNumVMs": "[steps('vmssServiceConfig').autoscaleDefault]",
+	    "autoscaleMin": "[steps('vmssServiceConfig').autoscaleMin]",
+	    "autoscaleMax": "[steps('vmssServiceConfig').autoscaleMax]",
+	    "autoscaleDefault": "[steps('vmssServiceConfig').autoscaleDefault]",
 	    "scaleOutCPUPercentageThreshold": "[steps('vmssServiceConfig').scaleOutCPUPercentageThreshold]",
-	    "numVMsToIncreaseByOnScaleOut": "[steps('vmssServiceConfig').scaleOutInterval]",
+	    "scaleOutInterval": "[steps('vmssServiceConfig').scaleOutInterval]",
 	    "scaleInCPUPercentageThreshold": "[steps('vmssServiceConfig').scaleInCPUPercentageThreshold]",
-	    "numVMsToDecreaseByOnScaleIn": "[steps('vmssServiceConfig').scaleInInterval]"
+	    "scaleInInterval": "[steps('vmssServiceConfig').scaleInInterval]"
 	}
     }
 }
