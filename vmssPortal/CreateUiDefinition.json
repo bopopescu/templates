@@ -318,7 +318,7 @@
 		    {
 			"name": "scaleInCPUPercentageThreshold",
 			"type": "Microsoft.Common.TextBox",
-			"label": "Scale out CPU percentage threshold",
+			"label": "Scale in CPU percentage threshold",
 			"defaultValue": "25",
 			"toolTip": "The CPU usage percentage threshold for triggering the scale in autoscale rule.",
 			"constraints": {
