@@ -251,7 +251,7 @@
 			}
 		    },
 		    {
-			"name": "autoscaleMin",
+			"name": "autoscaleMinNumVMs",
 			"type": "Microsoft.Common.TextBox",
 			"label": "Autoscale min",
 			"defaultValue": "1",
@@ -264,7 +264,7 @@
 			"visible": "[equals('Yes', steps('vmssServiceConfig').autoscaleYesOrNo)]"
 		    },
 		    {
-			"name": "autoscaleMax",
+			"name": "autoscaleMaxNumVMs",
 			"type": "Microsoft.Common.TextBox",
 			"label": "Autoscale max",
 			"defaultValue": "10",
@@ -277,7 +277,7 @@
 			"visible": "[equals('Yes', steps('vmssServiceConfig').autoscaleYesOrNo)]"
 		    },
 		    {
-			"name": "autoscaleDefault",
+			"name": "autoscaleDefaultNumVMs",
 			"type": "Microsoft.Common.TextBox",
 			"label": "Autoscale default",
 			"defaultValue": "1",
@@ -303,7 +303,7 @@
 			"visible": "[equals('Yes', steps('vmssServiceConfig').autoscaleYesOrNo)]"
 		    },
 		    {
-			"name": "scaleOutInterval",
+			"name": "numVMsToIncreaseByOnScaleOut",
 			"type": "Microsoft.Common.TextBox",
 			"label": "Scale out interval",
 			"defaultValue": "1",
@@ -329,7 +329,7 @@
 			"visible": "[equals('Yes', steps('vmssServiceConfig').autoscaleYesOrNo)]"
 		    },
 		    {
-			"name": "scaleInInterval",
+			"name": "numVMsToDecreaseByOnScaleIn",
 			"type": "Microsoft.Common.TextBox",
 			"label": "Scale in interval",
 			"defaultValue": "1",
@@ -356,13 +356,13 @@
 	    "username": "[basics(concat('adminUsername', basics('osType')))]",
 	    "location": "[location()]",
 	    "autoscaleYesOrNo": "[steps('vmssServiceConfig').autoscaleYesOrNo]",
-	    "autoscaleMin": "[steps('vmssServiceConfig').autoscaleMin]",
-	    "autoscaleMax": "[steps('vmssServiceConfig').autoscaleMax]",
-	    "autoscaleDefault": "[steps('vmssServiceConfig').autoscaleDefault]",
+	    "autoscaleMinNumVMs": "[steps('vmssServiceConfig').autoscaleMin]",
+	    "autoscaleMaxNumVMs": "[steps('vmssServiceConfig').autoscaleMax]",
+	    "autoscaleDefaultNumVMs": "[steps('vmssServiceConfig').autoscaleDefault]",
 	    "scaleOutCPUPercentageThreshold": "[steps('vmssServiceConfig').scaleOutCPUPercentageThreshold]",
-	    "scaleOutInterval": "[steps('vmssServiceConfig').scaleOutInterval]",
+	    "numVMsToIncreaseByOnScaleOut": "[steps('vmssServiceConfig').scaleOutInterval]",
 	    "scaleInCPUPercentageThreshold": "[steps('vmssServiceConfig').scaleInCPUPercentageThreshold]",
-	    "scaleInInterval": "[steps('vmssServiceConfig').scaleInInterval]"
+	    "numVMsToDecreaseByOnScaleIn": "[steps('vmssServiceConfig').scaleInInterval]"
 	}
     }
 }
