@@ -256,7 +256,7 @@
 	"extensionNameWindows": "Microsoft.Insights.VMDiagnosticsSettings",
 	"extensionPublisherWindows": "Microsoft.Azure.Diagnostics",
 	"extensionTypeWindows": "IaaSDiagnostics",
-	"extensionVersionWindows": "1.5"
+	"extensionVersionWindows": "1.6"
 	
 	
     },
@@ -433,7 +433,7 @@
 				    "publisher": "[variables(concat('extensionPublisher', parameters('osType')))]",
 				    "type": "[variables(concat('extensionType', parameters('osType')))]",
 				    "typeHandlerVersion": "[variables(concat('extensionVersion', parameters('osType')))]",
-				    "autoUpgradeMinorVersion": true,
+				    "autoUpgradeMinorVersion": false,
 				    "settings": {
 					"xmlCfg": "[base64(concat(variables('wadcfgxstart'),resourceId('Microsoft.Compute/virtualMachineScaleSets', variables('namingInfix')),variables('wadcfgxend')))]",
 					"storageAccount": "[variables('diagnosticsSAName')]"
