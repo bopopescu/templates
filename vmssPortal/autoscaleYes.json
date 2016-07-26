@@ -142,8 +142,9 @@
 	"natPoolName": "[concat(variables('namingInfix'), 'natpool')]",
 	"bePoolName": "[concat(variables('namingInfix'), 'bepool')]",
 	"natStartPort": 50000,
-	"natEndPort": 50099,
-	"natBackendPort": 22,
+	"natEndPort":50119,
+	"natBackendPortWindows":22,
+	"natBackendPortLinux":3389,
 	"nicName": "[concat(variables('namingInfix'), 'nic')]",
 	"ipConfigName": "[concat(variables('namingInfix'), 'ipconfig')]",
 	"frontEndIPConfigID": "[concat(variables('lbID'),'/frontendIPConfigurations/loadBalancerFrontEnd')]",
@@ -352,7 +353,7 @@
 			    "protocol": "tcp",
 			    "frontendPortRangeStart": "[variables('natStartPort')]",
 			    "frontendPortRangeEnd": "[variables('natEndPort')]",
-			    "backendPort": "[variables('natBackendPort')]"
+			    "backendPort":"[variables(concat('natBackendPort', parameters('osType')))]"
 			}
 		    }
 		]
