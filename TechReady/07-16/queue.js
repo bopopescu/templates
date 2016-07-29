@@ -1,0 +1,2 @@
+var azure = require('azure');
+
