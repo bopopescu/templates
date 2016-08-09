@@ -92,7 +92,10 @@
 	},
 	"autoscaleDefault": {
 	    "type": "string",
-	    "defaultValue": "1"
+	    "defaultValue": "1",
+	    "metadata": {
+		"description": "Autoscale will ensure you have at least this many VMs, even if it cannot read from the diagnostics Storage Table."
+	    }
 	},
 	"scaleOutCPUPercentageThreshold": {
 	    "type": "string",
