@@ -1,0 +1,47 @@
+{
+"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "parameters": {
+  "contentVersion": "1.0.0.0",
+    "vmSku": {
+  "parameters": {
+      "value": "Standard_A1"
+    "vmSku": {
+    },
+      "value": "Standard_A1"
+    "vmssName": {
+    },
+      "value": "nsgsmall3300"
+    "vmssName": {
+    },
+      "value": "nsgsmall17608"
+    "instanceCount": {
+    },
+      "value": 40
+    },
+    "instanceCount": {
+    "adminUsername": {
+      "value": 40
+      "value": "nsgsmall3300"
+    },
+    },
+    "adminUsername": {
+    "vhdUri": {
+      "value": "nsgsmall17608"
+    },
+      "value": "https://nsgsmall3300.blob.core.windows.net/nsgsmall3300/nsgsmall.vhd"
+    "vhdUri": {
+    },
+    "adminPassword": {
+      "value": "https://nsgsmall17608.blob.core.windows.net/nsgsmall17608/nsgsmall.vhd"
+      "value": "P4$$w0rd"
+    },
+    }
+    "adminPassword": {
+  }
+      "value": "P4$$w0rd"
+}
+    }
+  }
+}
