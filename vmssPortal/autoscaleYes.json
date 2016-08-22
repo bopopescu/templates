@@ -393,11 +393,11 @@
 		    "storageProfile": {
 			"osDisk": {
 			    "vhdContainers": [
-				"[concat('https://', variables('uniqueStringArray')[0], variables('newStorageAccountSuffix'), reference(concat('Microsoft.Storage/storageAccounts/', concat(variables('uniqueStringArray')[0], variables('newStorageAccountSuffix'))), variables('apiVersion')).primaryEndpoints.blob, variables('vhdContainerName'))]",
-				"[concat('https://', variables('uniqueStringArray')[1], variables('newStorageAccountSuffix'), reference(concat('Microsoft.Storage/storageAccounts/', concat(variables('uniqueStringArray')[1], variables('newStorageAccountSuffix'))), variables('apiVersion')).primaryEndpoints.blob, variables('vhdContainerName'))]",
-				"[concat('https://', variables('uniqueStringArray')[2], variables('newStorageAccountSuffix'), reference(concat('Microsoft.Storage/storageAccounts/', concat(variables('uniqueStringArray')[2], variables('newStorageAccountSuffix'))), variables('apiVersion')).primaryEndpoints.blob, variables('vhdContainerName'))]",
-				"[concat('https://', variables('uniqueStringArray')[3], variables('newStorageAccountSuffix'), reference(concat('Microsoft.Storage/storageAccounts/', concat(variables('uniqueStringArray')[3], variables('newStorageAccountSuffix'))), variables('apiVersion')).primaryEndpoints.blob, variables('vhdContainerName'))]",
-				"[concat('https://', variables('uniqueStringArray')[4], variables('newStorageAccountSuffix'), reference(concat('Microsoft.Storage/storageAccounts/', concat(variables('uniqueStringArray')[4], variables('newStorageAccountSuffix'))), variables('apiVersion')).primaryEndpoints.blob, variables('vhdContainerName'))]"
+				"[concat(reference(concat('Microsoft.Storage/storageAccounts/', concat(variables('uniqueStringArray')[0], variables('newStorageAccountSuffix'))), variables('apiVersion')).primaryEndpoints.blob, variables('vhdContainerName'))]",
+				"[concat(reference(concat('Microsoft.Storage/storageAccounts/', concat(variables('uniqueStringArray')[1], variables('newStorageAccountSuffix'))), variables('apiVersion')).primaryEndpoints.blob, variables('vhdContainerName'))]",
+				"[concat(reference(concat('Microsoft.Storage/storageAccounts/', concat(variables('uniqueStringArray')[2], variables('newStorageAccountSuffix'))), variables('apiVersion')).primaryEndpoints.blob, variables('vhdContainerName'))]",
+				"[concat(reference(concat('Microsoft.Storage/storageAccounts/', concat(variables('uniqueStringArray')[3], variables('newStorageAccountSuffix'))), variables('apiVersion')).primaryEndpoints.blob, variables('vhdContainerName'))]",
+				"[concat(reference(concat('Microsoft.Storage/storageAccounts/', concat(variables('uniqueStringArray')[4], variables('newStorageAccountSuffix'))), variables('apiVersion')).primaryEndpoints.blob, variables('vhdContainerName'))]"
 			    ],
 			    "name": "[variables('osDiskName')]",
 			    "caching": "ReadOnly",
