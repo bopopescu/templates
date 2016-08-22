@@ -10,7 +10,7 @@
 		"constraints": {
 		    "required": true,
 		    "regex": "^[a-z][a-z0-9-]{1,59}[a-z0-9]$",
-		    "validationMessage": "Only alphanumeric characters are allowed.  The value must be 1-61 lowercase characters long and cannot start with a number."
+		    "validationMessage": "Only lowercase alphanumeric characters are allowed.  The value must be 1-61 lowercase characters long and cannot start with a number."
 		}
 	    },
 	    {
