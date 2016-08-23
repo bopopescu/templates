@@ -21,18 +21,6 @@
 	},
 	"image": {
 	    "type": "string",
-	    "allowedValues": [
-		"CentOs7.2",
-		"CoreOsStable",
-		"Debian8.0",
-		"OpenSuse13.2",
-		"RHEL7.2",
-		"SLES12-SP1",
-		"Ubuntu14.04.4-LTS",
-		"2012-R2-Datacenter",
-		"2012-Datacenter",
-		"2008-R2-SP1"
-	    ],
 	    "metadata": {
 		"description": "The os disk image for the VMs in the scale set."
 	    }
