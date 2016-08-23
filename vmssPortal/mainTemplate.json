@@ -118,7 +118,7 @@
       "metadata": {
         "artifactsBaseUrl": "Base URL of the VMSS Template gallery package"
       },
-      "defaultValue": "https://raw.githubusercontent.com/gatneil/templates/national/vmssPortal"
+      "defaultValue": "https://gallery.azure.com/artifact/20151001/microsoft.vmss.1.0.6/Artifacts"
     }
     },
     "variables":{
