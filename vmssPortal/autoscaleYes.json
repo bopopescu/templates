@@ -267,7 +267,7 @@
 	"extensionNameWindows": "Microsoft.Insights.VMDiagnosticsSettings",
 	"extensionPublisherWindows": "Microsoft.Azure.Diagnostics",
 	"extensionTypeWindows": "IaaSDiagnostics",
-	"extensionVersionWindows": "1.7"
+	"extensionVersionWindows": "1.6"
 	
 	
     },
