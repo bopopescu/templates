@@ -117,14 +117,10 @@
 			"name": "imageWindows",
 			"type": "Microsoft.Common.DropDown",
 			"label": "Operating system disk image",
-			"defaultValue": "2012-R2-Datacenter",
+			"defaultValue": "GETS REPLACED",
 			"toolTip": "The operating system disk image for the virtual machines in the scale set.",
 			"constraints": {
-			    "allowedValues": [
-				{"label": "2012-R2-Datacenter", "value": "2012-R2-Datacenter"},
-				{"label": "2012-Datacenter", "value": "2012-Datacenter"},
-				{"label": "2008-R2-SP1", "value": "2008-R2-SP1"}
-			    ]
+			    "allowedValues": [ "GETS REPLACED" ]
 			},
 			"visible": "[equals('Windows', basics('osType'))]"
 		    },
@@ -134,36 +130,7 @@
 			"label": "Operating system disk image",
 			"toolTip": "The operating system disk image for the virtual machines in the scale set. WARNING: Provisioning a VM from RHEL or SLES requires a subscription with no spending limit and a verified payment method. Manage at [https://account.windowsazure.com/Subscriptions](https://account.windowsazure.com/Subscriptions)",
 			"constraints": {
-			    "allowedValues": [
-				{
-				    "label": "CentOs7.2",
-				    "value": "CentOs7.2"
-				},
-				{
-				    "label": "CoreOsStable",
-				    "value": "CoreOsStable"
-				},
-				{
-				    "label": "Debian8.0",
-				    "value": "Debian8.0"
-				},
-				{
-				    "label": "OpenSuse13.2",
-				    "value": "OpenSuse13.2"
-				},
-				{
-				    "label": "RHEL7.2",
-				    "value": "RHEL7.2"
-				},
-				{
-				    "label": "SLES12-SP1",
-				    "value": "SLES12-SP1"
-				},
-				{
-				    "label": "Ubuntu14.04.4-LTS",
-				    "value": "Ubuntu14.04.4-LTS"
-				}
-			    ]
+			    "allowedValues": [ "GETS REPLACED" ]
 			},
 			"visible": "[equals('Linux', basics('osType'))]"
 		    },
