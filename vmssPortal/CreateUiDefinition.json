@@ -114,6 +114,33 @@
 		"bladeTitle": "Virtual machine scale set service settings",
 		"elements": [
 		    {
+			"name": "pip",
+			"type": "Microsoft.Network.PublicIpAddressCombo",
+			"label": {
+			    "publicIpAddress": "Public IP address",
+			    "domainNameLabel": "Domain name label"
+			},
+			"toolTip": {
+			    "publicIpAddress": "Public IP address for the LB in front of the scale set",
+			    "domainNameLabel": "Domain name label for the LB in front of the scale set"
+			},
+			"defaultValue": {
+			    "publicIpAddressName": "ip01",
+			    "domainNameLabel": "foobar"
+			},
+			"constraints": {
+			    "required": {
+				"domainNameLabel": true
+			    }
+			},
+			"options": {
+			    "hideNone": true,
+			    "hideDomainNameLabel": false,
+			    "hideExisting": true
+			},
+			"visible": true
+		    },
+		    {
 			"name": "imageWindows",
 			"type": "Microsoft.Common.DropDown",
 			"label": "Operating system disk image",
@@ -287,7 +314,7 @@
 			    "regex": "^[0-9]+$",
 			    "validationMessage": "Must be a non-negative integer, greater than or equal to autoscaleMin, and less than or equal to autoscaleMax."
 			},
-			"visible": "[equals('Yes', steps('vmssServiceConfig').autoscaleYesOrNo)]"
+			"visible": false
 		    },
 		    {
 			"name": "scaleOutCPUPercentageThreshold",
@@ -346,6 +373,8 @@
 	],
 	"outputs": {
 	    "osType": "[basics('osType')]",
+	    "pipName": "[steps('vmssServiceConfig').pip.name]",
+	    "pipLabel": "[steps('vmssServiceConfig').pip.domainNameLabel]",
 	    "vmSku": "[coalesce(steps('vmssServiceConfig').vmSkuWindows, steps('vmssServiceConfig').vmSkuLinux)]",
 	    "image": "[coalesce(steps('vmssServiceConfig').imageWindows, steps('vmssServiceConfig').imageLinux)]",
 	    "vmssName": "[basics('vmssName')]",
@@ -358,7 +387,7 @@
 	    "autoscaleYesOrNo": "[steps('vmssServiceConfig').autoscaleYesOrNo]",
 	    "autoscaleMin": "[steps('vmssServiceConfig').autoscaleMin]",
 	    "autoscaleMax": "[steps('vmssServiceConfig').autoscaleMax]",
-	    "autoscaleDefault": "[steps('vmssServiceConfig').autoscaleDefault]",
+	    "autoscaleDefault": "[steps('vmssServiceConfig').autoscaleMin]",
 	    "scaleOutCPUPercentageThreshold": "[steps('vmssServiceConfig').scaleOutCPUPercentageThreshold]",
 	    "scaleOutInterval": "[steps('vmssServiceConfig').scaleOutInterval]",
 	    "scaleInCPUPercentageThreshold": "[steps('vmssServiceConfig').scaleInCPUPercentageThreshold]",

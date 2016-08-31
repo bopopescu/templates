@@ -8,6 +8,12 @@
 		"description":"location of resources"
 	    }
 	},
+	"pipName": {
+	    "type": "string"
+	},
+	"pipLabel": {
+	    "type": "string"
+	},
 	"vmSku":{
 	    "type":"string",
 	    "defaultValue":"Standard_D1_v2",
@@ -88,7 +94,6 @@
 	"storageAccountType":"[variables('storageAccountTypes')[variables('saTypeIndex')]]",
 	"saCount":5,
 	"namingInfix": "[toLower(substring(concat(parameters('vmssName'), uniqueString(resourceGroup().id)), 0, 9))]",
-	"longNamingInfix": "[toLower(parameters('vmssName'))]",
 
 
 	"newStorageAccountSuffix":"[concat(variables('namingInfix'), 'sa')]",
@@ -106,7 +111,7 @@
 	"addressPrefix":"10.0.0.0/16",
 	"subnetPrefix":"10.0.0.0/24",
 	"virtualNetworkName":"[concat(variables('namingInfix'), 'vnet')]",
-	"publicIPAddressName":"[concat(variables('namingInfix'), 'pip')]",
+	"publicIPAddressName":"[parameters('pipName')]",
 	"subnetName":"[concat(variables('namingInfix'), 'subnet')]",
 	"loadBalancerName":"[concat(variables('namingInfix'), 'lb')]",
 	"publicIPAddressID":"[resourceId('Microsoft.Network/publicIPAddresses',variables('publicIPAddressName'))]",
@@ -261,7 +266,7 @@
 	    "properties":{
 		"publicIPAllocationMethod":"Dynamic",
 		"dnsSettings":{
-		    "domainNameLabel":"[variables('longNamingInfix')]"
+		    "domainNameLabel":"[parameters('pipLabel')]"
 		}
 	    }
 	},

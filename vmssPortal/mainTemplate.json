@@ -8,6 +8,12 @@
 		"description": "location of resources"
 	    }
 	},
+	"pipName": {
+	    "type": "string"
+	},
+	"pipLabel": {
+	    "type": "string"
+	},
 	"vmSku": {
 	    "type": "string",
 	    "defaultValue": "Standard_D1_v2",
@@ -118,7 +124,7 @@
       "metadata": {
         "artifactsBaseUrl": "Base URL of the VMSS Template gallery package"
       },
-      "defaultValue": "https://gallery.azure.com/artifact/20151001/microsoft.vmss.1.0.1/Artifacts"
+      "defaultValue": "https://gallery.azure.com/artifact/20151001/microsoft.vmss.1.0.7/Artifacts"
     }
     },
     "variables":{
@@ -126,6 +132,8 @@
 
 	"parametersAutoscaleNo": {
 	    "username": {"value": "[parameters('username')]"},
+	    "pipName": {"value": "[parameters('pipName')]"},
+	    "pipLabel": {"value": "[parameters('pipLabel')]"},
 	    "instanceCount": {"value": "[parameters('instanceCount')]"},
 	    "authenticationType": {"value": "[parameters('authenticationType')]"},
 	    "vmssName": {"value": "[parameters('vmssName')]"},
@@ -139,6 +147,8 @@
 
 	"parametersAutoscaleYes": {
 	    "username": {"value": "[parameters('username')]"},
+	    "pipName": {"value": "[parameters('pipName')]"},
+	    "pipLabel": {"value": "[parameters('pipLabel')]"},
 	    "autoscaleDefault": {"value": "[parameters('autoscaleDefault')]"},
 	    "instanceCount": {"value": "[parameters('instanceCount')]"},
 	    "scaleInInterval": {"value": "[parameters('scaleInInterval')]"},
