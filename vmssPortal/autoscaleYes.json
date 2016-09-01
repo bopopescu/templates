@@ -122,7 +122,10 @@
 	    "Premium_LRS",
 	    "Standard_LRS"
 	],
-	"saTypeIndex": "[length(replace(substring(parameters('vmSku'), 10, 1), 'S', ''))]",
+	"storageAccountTypes": ["SA_LOGIC_ERROR", "Premium_LRS", "Standard_LRS"],
+	"saTypeIndexOne": "[length(replace(substring(parameters('vmSku'), 10, 1), 'S', ''))]",
+	"saTypeIndexTwo": "[length(replace(substring(parameters('vmSku'), sub(length(parameters('vmSku')), 1), 1), 's', ''))]",
+	"saTypeIndex": "[add(variables('saTypeIndexOne'), variables('saTypeIndexTwo'))]",
 	"storageAccountType": "[variables('storageAccountTypes')[variables('saTypeIndex')]]",
 	"saCount": 5,
 	"namingInfix": "[toLower(substring(concat(parameters('vmssName'), uniqueString(resourceGroup().id)), 0, 9))]",
