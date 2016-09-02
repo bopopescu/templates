@@ -6,6 +6,7 @@ from pprint import pprint
 
 parser = argparse.ArgumentParser(description="Generate zips for marketplace.")
 parser.add_argument('--version', help='semver package version', required=True)
+parser.add_argument('--hidekey', help='generate with vmss hidekey')
 args = parser.parse_args()
 
 with open('imageList.json') as imageListFile:
@@ -24,6 +25,10 @@ with open('manifests/basePackage/strings/resources.resjson') as resourceJsonFile
     resourceJson = json.load(resourceJsonFile)
 
 manifest["version"] = args.version
+if args.hidekey:
+    print("generating with hidekey")
+    manifest["filters"] = [{"type": "HideKey", "value": "vmss"}]
+
 mainTemplate["parameters"]["baseUrl"]["defaultValue"] = "https://gallery.azure.com/artifact/20151001/microsoft.vmss." + args.version + "/Artifacts"
 resourceJson["description"] += " (Portal VMSS version " + args.version + ")."
 outputRootFolder = "releases/" + args.version + "/"
@@ -74,3 +79,6 @@ for environment in imageList:
 
     with open(subRoot + 'Artifacts/mainTemplate.json', 'w') as mainTemplateOutFile:
         mainTemplateOutFile.write(json.dumps(mainTemplate))
+
+
+subprocess.call(['zip', '-r', '/home/negat/vmssPortal' + args.version + '.zip', outputRootFolder])
