@@ -14,6 +14,9 @@ with open('imageList.json') as imageListFile:
 with open('CreateUiDefinition.json') as baseFile:
     base = json.load(baseFile)
 
+with open('mainTemplate.json') as mainTemplateFile:
+    mainTemplate = json.load(mainTemplateFile)
+
 with open('manifests/basePackage/Manifest.json') as manifestFile:
     manifest = json.load(manifestFile)
 
@@ -21,6 +24,7 @@ with open('manifests/basePackage/strings/resources.resjson') as resourceJsonFile
     resourceJson = json.load(resourceJsonFile)
 
 manifest["version"] = args.version
+mainTemplate["parameters"]["baseUrl"]["defaultValue"] = "https://gallery.azure.com/artifact/20151001/microsoft.vmss." + args.version + "/Artifacts"
 resourceJson["description"] += " (Portal VMSS version " + args.version + ")."
 outputRootFolder = "releases/" + args.version + "/"
 subprocess.call(['mkdir', outputRootFolder])
@@ -67,3 +71,6 @@ for environment in imageList:
         
     with open(subRoot + 'Artifacts/CreateUiDefinition.json', 'w') as outFile:
         outFile.write(json.dumps(data))
+
+    with open(subRoot + 'Artifacts/mainTemplate.json', 'w') as mainTemplateOutFile:
+        mainTemplateOutFile.write(json.dumps(mainTemplate))
