@@ -57,6 +57,10 @@
 	    {
 		"label": "SLES12-SP1",
 		"value": "SLES12-SP1"
+	    },
+	    {
+		"label": "Ubuntu14.04.3-LTS",
+		"value": "Ubuntu14.04.3-LTS"
 	    }
 	]
     }

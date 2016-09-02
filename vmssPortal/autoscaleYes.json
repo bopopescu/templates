@@ -196,7 +196,14 @@
 	    "sku": "14.04.4-LTS",
 	    "version": "latest"
 	},
+
 	
+	"imageUbuntu14.04.3-LTS": {
+	    "publisher": "Canonical",
+	    "offer": "UbuntuServer",
+	    "sku": "14.04.3-LTS",
+	    "version": "latest"
+	},
 
 
 	"image2012-R2-Datacenter":{
