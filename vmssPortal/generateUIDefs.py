@@ -54,7 +54,7 @@ for environment in imageList:
     imageLinuxElement["constraints"]["allowedValues"] = imageList[environment]["linux"]
     #pprint(data)
 
-    if environment == "China":
+    if not environment == "Public":
         autoscaleYesOrNoElement = getElementByNameInVMSSStep(data, "autoscaleYesOrNo")
         autoscaleYesOrNoElement["visible"] = False
         autoscaleYesOrNoElement["constraints"]["allowedValues"] = [{"label": "Disabled", "value": "No"}]
