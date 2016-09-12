@@ -80,5 +80,7 @@ for environment in imageList:
     with open(subRoot + 'Artifacts/mainTemplate.json', 'w') as mainTemplateOutFile:
         mainTemplateOutFile.write(json.dumps(mainTemplate))
 
+    subprocess.call(['cp', 'autoscaleNo.json', 'autoscaleYes.json', subRoot + 'Artifacts/'])
 
-subprocess.call(['zip', '-r', '/home/negat/vmssPortal' + args.version + '.zip', outputRootFolder])
+
+subprocess.call(['cp', '-r', outputRootFolder, '/home/negat/vmssPortal' + args.version])
