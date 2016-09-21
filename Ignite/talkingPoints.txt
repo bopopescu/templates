@@ -1,0 +1,5 @@
+> You want a scale set with autoscale? easy. Deploy from portal.
+> You want more advanced autoscale? Here are the things you can do.
+> You want to roll your own or want raw access to the data for another reason? Fine, here's data per minute.
+
+> You want data disks on scale sets? Here's an example with elastic search; public bits coming soon.

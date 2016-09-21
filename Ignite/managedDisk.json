@@ -175,7 +175,14 @@
 			    "createOption": "FromImage",
 			    "diskSizeGB": "100"
 			},
-			"imageReference": "[variables('imageReference')]"
+			"imageReference": "[variables('imageReference')]",
+			"dataDisks": [
+			    {
+				"lun": "1",
+				"createOption": "empty",
+				"diskSizeGB": "1023"
+			    }
+			]
 		    },
 		    "osProfile": {
 			"computerNamePrefix": "[variables('namingInfix')]",
