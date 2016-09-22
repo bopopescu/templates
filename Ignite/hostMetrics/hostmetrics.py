@@ -47,8 +47,9 @@ while True:
                                 y.append(datum['average'])
                                 t.append(datum['timeStamp'])
 
-                print(y)
-                print(t)
+                #print(y)
+                #print(t)
+                #print(len(y))
 
                 if len(y) == len(x):
                         ax.set_title(str(datetime.datetime.now().time()) + " UTC")
@@ -58,9 +59,9 @@ while True:
                         # set the new data
                         li.set_xdata(x)
                         li.set_ydata(y)
-                
+                        
                         fig.canvas.draw()
-                
-                        time.sleep(2)
+                        
+                time.sleep(2)
         except KeyboardInterrupt:
                 break
