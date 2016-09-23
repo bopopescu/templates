@@ -190,6 +190,25 @@
 			"adminUsername": "[parameters('adminUsername')]",
 			"adminPassword": "[parameters('adminPassword')]"
 		    },
+		    "extensionProfile": {
+			"extensions": [
+			    {
+				"name": "formatDisk",
+				"properties": {
+				    "publisher": "Microsoft.OSTCExtensions",
+				    "type": "CustomScriptForLinux",
+				    "typeHandlerVersion": "1.4",
+				    "autoUpgradeMinorVersion": true,
+				    "settings": {
+					"fileUris": [
+					    "['https://raw.githubusercontent.com/gatneil/templates/Ignite/Ignite/managedDisk/formatDisk.sh']"
+					],
+					"commandToExecute": "bash formatDisk.sh"
+				    }
+				}
+			    }
+			]
+		    }
 		    "networkProfile": {
 			"networkInterfaceConfigurations": [
 			    {
