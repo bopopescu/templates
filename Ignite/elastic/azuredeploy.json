@@ -410,7 +410,7 @@
 		"virtualMachineProfile": {
 		    "storageProfile": {
 			"osDisk": {
-			    "createOption": "FromImage"
+			    "createOption": "FromImage",
 			    "diskSizeGB": 100
 			},
 			"imageReference": "[variables('imageReference')]",
