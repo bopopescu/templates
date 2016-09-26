@@ -124,8 +124,9 @@ configure_es()
 	    # ADDED BY NEIL
 	    parted /dev/sdc mklabel gpt
 	    parted /dev/sdc mkpart primary 0% 100%
-	    sudo mkfs.ext4 /dev/sdc1
+	    mkfs.ext4 /dev/sdc1
 	    mkdir /home/negat/data
+	    chmod 777 /home/negat/data
 	    mount /dev/sdc1 /home/negat/data
 	    echo "path.data: /home/negat/data" >> /etc/elasticsearch/elasticsearch.yml
 	else
