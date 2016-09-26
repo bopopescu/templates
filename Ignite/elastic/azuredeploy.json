@@ -308,12 +308,7 @@
 			    },
 			    "networkSecurityGroup": {
 				"id": "[resourceId('Microsoft.Network/networkSecurityGroups', 'masterNSG')]"
-			    },
-			    "loadBalancerBackendAddressPools": [
-				{
-				    "id": "[concat('/subscriptions/', subscription().subscriptionId,'/resourceGroups/', resourceGroup().name, '/providers/Microsoft.Network/loadBalancers/', variables('loadBalancerName'), '/backendAddressPools/', variables('bePoolName'))]"
-				}
-			    ]
+			    }
 			}
 		    }
 		]
@@ -445,6 +440,11 @@
 						"subnet": {
 						    "id": "[concat('/subscriptions/', subscription().subscriptionId,'/resourceGroups/', resourceGroup().name, '/providers/Microsoft.Network/virtualNetworks/', variables('virtualNetworkName'), '/subnets/', variables('subnetName'))]"
 						},
+						"loadBalancerBackendAddressPools": [
+						    {
+							"id": "[concat('/subscriptions/', subscription().subscriptionId,'/resourceGroups/', resourceGroup().name, '/providers/Microsoft.Network/loadBalancers/', variables('loadBalancerName'), '/backendAddressPools/', variables('bePoolName'))]"
+						    }
+						],
 						"loadBalancerInboundNatPools": [
 						    {
 							"id": "[concat('/subscriptions/', subscription().subscriptionId,'/resourceGroups/', resourceGroup().name, '/providers/Microsoft.Network/loadBalancers/', variables('loadBalancerName'), '/inboundNatPools/', variables('natPoolName'))]"
