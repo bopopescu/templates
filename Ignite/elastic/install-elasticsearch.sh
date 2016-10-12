@@ -126,8 +126,7 @@ configure_es()
 	    parted /dev/sdc mkpart primary 0% 100%
 	    mkfs.ext4 /dev/sdc1
 	    mkdir /home/negat/data
-	    mkdir /home/negat/data/es-azure # !!!
-	    chmod 777 /home/negat/data
+	    chown negat:negat /home/negat/data
 	    mount /dev/sdc1 /home/negat/data
 	    echo "path.data: /home/negat/data" >> /etc/elasticsearch/elasticsearch.yml
 	else
