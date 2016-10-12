@@ -127,8 +127,8 @@ configure_es()
 	    mkfs.ext4 /dev/sdc1
 	    mkdir /home/negat/data
 	    chown negat:negat /home/negat/data
-	    chmod 777 /home/negat/data # !!!
 	    mount /dev/sdc1 /home/negat/data
+	    chmod 777 /home/negat/data # !!!
 	    echo "path.data: /home/negat/data" >> /etc/elasticsearch/elasticsearch.yml
 	else
         echo "node.master: true" >> /etc/elasticsearch/elasticsearch.yml
