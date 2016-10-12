@@ -151,6 +151,7 @@ configure_system()
 
 start_service()
 {
+        log $(whoami)
 	log "Starting Elasticsearch on ${HOSTNAME}"
 	update-rc.d elasticsearch defaults 95 10
 	sudo service elasticsearch start
