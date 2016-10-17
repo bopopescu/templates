@@ -8,14 +8,14 @@
 	},
 	"vmSku": {
 	    "type": "string",
-	    "defaultValue": "Standard_D2_v2",
+	    "defaultValue": "Standard_DS1_v2",
 	    "metadata": {
 		"description": "Size of VMs in the VM Scale Set."
 	    }
 	},
 	"masterSize": {
 	    "type": "string",
-	    "defaultValue": "Standard_D2_v2",
+	    "defaultValue": "Standard_DS1_v2",
 	    "metadata": {
 		"description": "Size of master VMs."
 	    }
@@ -65,7 +65,7 @@
 	}
     },
     "variables": {
-	"storageAccountType": "Standard_LRS",
+	"storageAccountType": "Premium_LRS",
 	"namingInfix": "[toLower(substring(concat(parameters('vmssName'), uniqueString(resourceGroup().id)), 0, 9))]",
 	"longNamingInfix": "[toLower(parameters('vmssName'))]",
 	"newStorageAccountSuffix": "[concat(variables('namingInfix'), 'sa')]",
