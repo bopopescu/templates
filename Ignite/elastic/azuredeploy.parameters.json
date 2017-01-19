@@ -1,18 +1,33 @@
 {
-  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
-  "contentVersion": "1.0.0.0",
-  "parameters": {
-    "vmssName": {
-      "value": "GEN-UNIQUE-32"
-    },
-    "instanceCount": {
-      "value": 5
-    },
-    "adminUsername": {
-      "value": "ubuntu"
-    },
-    "adminPassword": {
-      "value": "GEN-PASSWORD"
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+	"clusterName": {
+	    "value": "es-azure"
+	},
+	"vmSku": {
+	    "value": "Standard_DS1_v2"
+	},
+        "masterSize": {
+	    "value": "Standard_DS1_v2"
+	},
+        "ubuntuOSVersion": {
+	    "value": "14.04.4-LTS"
+	},
+	"vmssName": {
+	    "value": "nsgelastic14"
+	},
+	"templateBase": {
+	    "value": "https://raw.githubusercontent.com/gatneil/templates/Ignite/Ignite/elastic/"
+	},
+	"instanceCount": {
+	    "value": 1000
+	},
+	"adminUsername": {
+	    "value": "negat"
+	},
+	"adminPassword": {
+	    "value": "P4$$w0rd"
+	}
     }
-  }
 }
