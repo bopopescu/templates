@@ -18,7 +18,7 @@
 	    "value": "nsgelastic14"
 	},
 	"templateBase": {
-	    "value": "https://raw.githubusercontent.com/gatneil/templates/Ignite/Ignite/elastic/"
+	    "value": "https://raw.githubusercontent.com/gatneil/templates/cors/Ignite/elastic/"
 	},
 	"instanceCount": {
 	    "value": 1000
