@@ -165,8 +165,8 @@
             "name": "es-master-set",
             "location": "[resourceGroup().location]",
             "properties": {
-		"platformUpdateDomainCount": 3,
-		"platformFaultDomainCount": 3,
+		"platformUpdateDomainCount": 2,
+		"platformFaultDomainCount": 2,
 		"managed": "true"
             }
 	},
@@ -325,13 +325,7 @@
 			    "diskSizeGB": 100
 			},
 			"imageReference": "[variables('imageReference')]",
-	      		"dataDisks": [
-			    {
-				"lun": "1",
-				"createOption": "empty",
-				"diskSizeGB": "1023"
-			    }
-			]
+	      		"dataDisks": []
 		    },
 		    "osProfile": {
 			"computerNamePrefix": "[variables('namingInfix')]",
