@@ -118,6 +118,10 @@ configure_es()
 	echo "network.host: _non_loopback_" >> /etc/elasticsearch/elasticsearch.yml
 	echo "bootstrap.memory_lock: true" >> /etc/elasticsearch/elasticsearch.yml
 
+	# ADDED BY NEIL
+	echo "http.cors.enabled: true" >> /etc/elasticsearch/elasticsearch.yml
+	echo "http.cors.allow-origin: *" >> /etc/elasticsearch/elasticsearch.yml
+
 	if [ ${IS_DATA_NODE} -eq 1 ]; then
 	    echo "node.master: false" >> /etc/elasticsearch/elasticsearch.yml
 	    echo "node.data: true" >> /etc/elasticsearch/elasticsearch.yml
