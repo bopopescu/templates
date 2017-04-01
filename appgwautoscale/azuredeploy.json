@@ -194,6 +194,25 @@
 				}
 			    }
 			]
+		    },
+		    "extensionProfile": {
+			"extensions": [
+			    {
+				"name": "apacheextension",
+				"properties": {
+				    "publisher": "Microsoft.Azure.Extensions",
+				    "type": "CustomScript",
+				    "typeHandlerVersion": "2.0",
+				    "autoUpgradeMinorVersion": true,
+				    "settings": {
+					"fileUris": [
+					    "https://raw.githubusercontent.com/gatneil/scripts/master/apacheUniqueHost.sh"
+					],
+					"commandToExecute": "bash apacheUniqueHost.sh"
+				    }
+				}
+			    }
+			]
 		    }
 		}
 	    }
