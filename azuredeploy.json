@@ -42,7 +42,7 @@
       ],
       "sku": {
         "name": "Standard_A1",
-        "capacity": 2
+        "capacity": 1000
       },
       "properties": {
         "singlePlacementGroup": false,
