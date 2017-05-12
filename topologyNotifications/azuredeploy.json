@@ -14,7 +14,7 @@
 	{
 	    "type": "Microsoft.Network/virtualNetworks",
 	    "name": "myVnet",
-	    "location": "[resourceGroup().location]",
+	    "location": "westus",
 	    "apiVersion": "2016-12-01",
 	    "properties": {
 		"addressSpace": {
@@ -35,7 +35,7 @@
 	{
 	    "type": "Microsoft.Network/virtualNetworks",
 	    "name": "myVnet2",
-	    "location": "[resourceGroup().location]",
+	    "location": "eastus",
 	    "apiVersion": "2016-12-01",
 	    "properties": {
 		"addressSpace": {
@@ -57,7 +57,7 @@
 	    "apiVersion": "2017-04-01",
 	    "type": "Microsoft.Network/publicIPAddresses",
 	    "name": "myPip",
-	    "location": "[resourceGroup().location]",
+	    "location": "eastus",
 	    "properties": {
 		"publicIPAllocationMethod": "Dynamic"
 	    }
@@ -66,7 +66,7 @@
 	    "apiVersion": "2017-04-01",
 	    "type": "Microsoft.Network/networkInterfaces",
 	    "name": "myNic",
-	    "location": "[resourceGroup().location]",
+	    "location": "eastus",
 	    "dependsOn": [
 		"Microsoft.Network/publicIPAddresses/myPip",
 		"Microsoft.Network/virtualNetworks/myVnet2"
@@ -91,7 +91,7 @@
 	{
 	    "type": "Microsoft.Compute/virtualMachines",
 	    "name": "myVM",
-	    "location": "[resourceGroup().location]",
+	    "location": "eastus",
 	    "apiVersion": "2016-04-30-preview",
 	    "dependsOn": [
 		"Microsoft.Network/networkInterfaces/myNic"
@@ -125,7 +125,7 @@
 	{
 	    "type": "Microsoft.Compute/virtualMachineScaleSets",
 	    "name": "myScaleSet",
-	    "location": "[resourceGroup().location]",
+	    "location": "westus",
 	    "apiVersion": "2016-04-30-preview",
 	    "dependsOn": [
 		"Microsoft.Network/virtualNetworks/myVnet"
