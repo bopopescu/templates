@@ -135,7 +135,6 @@
 		"capacity": 2
 	    },
 	    "properties": {
-		"overprovision": false,
 		"upgradePolicy": {
 		    "mode": "Manual"
 		},
