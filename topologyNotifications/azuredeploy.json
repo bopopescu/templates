@@ -107,8 +107,7 @@
 	    "location": "eastus",
 	    "apiVersion": "2016-04-30-preview",
 	    "dependsOn": [
-		"Microsoft.Network/networkInterfaces/myNic",
-		"Microsoft.Compute/virtualMachineScaleSets/myScaleSet"
+		"Microsoft.Network/networkInterfaces/myNic"
 	    ],
 	    "properties": {
 		"hardwareProfile": {
@@ -134,30 +133,29 @@
 			}
 		    ]
 		}
-	    },
-	    "resources": [
-		{
-		    "type": "extensions",
-		    "name": "CustomScriptExtension",
-		    "apiVersion": "2015-06-15",
-		    "location": "[resourceGroup().location]",
-		    "dependsOn": [
-			"myVM"
+	    }
+	},
+	{
+	    "type": "Microsoft.Compute/virtualMachines/extensions",
+	    "name": "myVM/ext",
+	    "apiVersion": "2017-03-30",
+	    "location": "[resourceGroup().location]",
+	    "dependsOn": [
+		"Microsoft.Compute/virtualMachines/myVM",
+		"Microsoft.Compute/virtualMachineScaleSets/myScaleSet"
+	    ],
+	    "properties": {
+		"publisher": "Microsoft.Azure.Extensions",
+		"type": "CustomScript",
+		"typeHandlerVersion": "2.0",
+		"autoUpgradeMinorVersion": true,
+		"settings": {
+		    "fileUris": [
+			"[concat(parameters('_artifactsLocation'), '/get_topology_notifications.sh')]"
 		    ],
-		    "properties": {
-			"publisher": "Microsoft.Azure.Extensions",
-			"type": "CustomScript",
-			"typeHandlerVersion": "2.0",
-			"autoUpgradeMinorVersion": true,
-			"settings": {
-			    "fileUris": [
-				"[concat(parameters('_artifactsLocation'), '/get_topology_notifications.sh')]"
-			    ],
-			    "commandToExecute": "[concat('bash get_topology_notifications.sh ', parameters('tenantId'), ' ', parameters('applicationId'), ' ', parameters('applicationSecret'), ' ', resourceId('Microsoft.Compute/virtualMachineScaleSets', 'myScaleSet'))]"
-			}
-		    }
+		    "commandToExecute": "[concat('bash get_topology_notifications.sh ', parameters('tenantId'), ' ', parameters('applicationId'), ' ', parameters('applicationSecret'), ' ', resourceId('Microsoft.Compute/virtualMachineScaleSets', 'myScaleSet'))]"
 		}
-	    ]
+	    }
 	},
 	{
 	    "type": "Microsoft.Compute/virtualMachineScaleSets",
