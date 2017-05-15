@@ -7,6 +7,19 @@
 	},
 	"adminPassword": {
 	    "type": "securestring"
+	},
+	"tenantId": {
+	    "type": "securestring"
+	},
+	"applicationId": {
+	    "type": "securestring"
+	},
+	"applicationSecret": {
+	    "type": "securestring"
+	},
+	"_artifactsLocation": {
+	    "type": "string",
+	    "defaultValue": "wget https://raw.githubusercontent.com/gatneil/templates/topologyNotifications/topologyNotifications"
 	}
     },
     "variables": {},
@@ -94,7 +107,8 @@
 	    "location": "eastus",
 	    "apiVersion": "2016-04-30-preview",
 	    "dependsOn": [
-		"Microsoft.Network/networkInterfaces/myNic"
+		"Microsoft.Network/networkInterfaces/myNic",
+		"Microsoft.Compute/virtualMachineScaleSets/myScaleSet"
 	    ],
 	    "properties": {
 		"hardwareProfile": {
@@ -119,7 +133,30 @@
 			    "id": "[resourceId('Microsoft.Network/networkInterfaces', 'myNic')]"
 			}
 		    ]
-		}
+		},
+		"resources": [
+		    {
+			"type": "extensions",
+			"name": "CustomScriptExtension",
+			"apiVersion": "2015-06-15",
+			"location": "[resourceGroup().location]",
+			"dependsOn": [
+			    "myVM"
+			],
+			"properties": {
+			    "publisher": "Microsoft.Azure.Extensions",
+			    "type": "CustomScript",
+			    "typeHandlerVersion": "2.0",
+			    "autoUpgradeMinorVersion": true,
+			    "settings": {
+				"fileUris": [
+				    "[concat(parameters('_artifactsLocation'), '/get_topology_notifications.sh')]"
+				],
+				"commandToExecute": "[concat('bash get_topology_notifications.sh ', parameters('tenantId'), ' ', parameters('applicationId'), ' ', parameters('applicationSecret'), ' ', resourceId('Microsoft.Compute/virtualMachineScaleSets', 'myScaleSet'))]"
+			    }
+			}
+		    }
+		]
 	    }
 	},
 	{
