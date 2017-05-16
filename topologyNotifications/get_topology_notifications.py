@@ -10,7 +10,7 @@ tenantId = sys.argv[1]
 applicationId = sys.argv[2]
 applicationSecret = sys.argv[3]
 scaleSetResourceId = sys.argv[4]
-subscriptionId = scaleSetResourceId.split('/')[1]
+subscriptionId = scaleSetResourceId.split('/')[2]
 
 access_token = azurerm.get_access_token(
     tenantId,
