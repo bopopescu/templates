@@ -27,7 +27,7 @@
 	},
 	"_artifactsLocation": {
 	    "type": "string",
-	    "defaultValue": "wget https://raw.githubusercontent.com/gatneil/templates/topologyNotifications/topologyNotifications"
+	    "defaultValue": "https://raw.githubusercontent.com/gatneil/templates/topologyNotifications/topologyNotifications"
 	}
     },
     "variables": {},
