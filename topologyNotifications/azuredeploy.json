@@ -17,6 +17,14 @@
 	"applicationSecret": {
 	    "type": "securestring"
 	},
+	"scaleSetRegion": {
+	    "type": "string",
+	    "defaultValue": "westus"
+	},
+	"vmRegion": {
+	    "type": "string",
+	    "defaultValue": "eastus"
+	},
 	"_artifactsLocation": {
 	    "type": "string",
 	    "defaultValue": "wget https://raw.githubusercontent.com/gatneil/templates/topologyNotifications/topologyNotifications"
@@ -27,7 +35,7 @@
 	{
 	    "type": "Microsoft.Network/virtualNetworks",
 	    "name": "myVnet",
-	    "location": "westus",
+	    "location": "[parameters('scaleSetRegion')]",
 	    "apiVersion": "2016-12-01",
 	    "properties": {
 		"addressSpace": {
@@ -48,7 +56,7 @@
 	{
 	    "type": "Microsoft.Network/virtualNetworks",
 	    "name": "myVnet2",
-	    "location": "eastus",
+	    "location": "[parameters('vmRegion')]",
 	    "apiVersion": "2016-12-01",
 	    "properties": {
 		"addressSpace": {
@@ -70,7 +78,7 @@
 	    "apiVersion": "2017-04-01",
 	    "type": "Microsoft.Network/publicIPAddresses",
 	    "name": "myPip",
-	    "location": "eastus",
+	    "location": "[parameters('vmRegion')]",
 	    "properties": {
 		"publicIPAllocationMethod": "Dynamic"
 	    }
@@ -79,7 +87,7 @@
 	    "apiVersion": "2017-04-01",
 	    "type": "Microsoft.Network/networkInterfaces",
 	    "name": "myNic",
-	    "location": "eastus",
+	    "location": "[parameters('vmRegion')]",
 	    "dependsOn": [
 		"Microsoft.Network/publicIPAddresses/myPip",
 		"Microsoft.Network/virtualNetworks/myVnet2"
@@ -104,7 +112,7 @@
 	{
 	    "type": "Microsoft.Compute/virtualMachines",
 	    "name": "myVM",
-	    "location": "eastus",
+	    "location": "[parameters('vmRegion')]",
 	    "apiVersion": "2016-04-30-preview",
 	    "dependsOn": [
 		"Microsoft.Network/networkInterfaces/myNic"
@@ -139,7 +147,7 @@
 	    "type": "Microsoft.Compute/virtualMachines/extensions",
 	    "name": "myVM/ext",
 	    "apiVersion": "2017-03-30",
-	    "location": "[resourceGroup().location]",
+	    "location": "[parameters('vmRegion')]",
 	    "dependsOn": [
 		"Microsoft.Compute/virtualMachines/myVM",
 		"Microsoft.Compute/virtualMachineScaleSets/myScaleSet"
@@ -160,7 +168,7 @@
 	{
 	    "type": "Microsoft.Compute/virtualMachineScaleSets",
 	    "name": "myScaleSet",
-	    "location": "westus",
+	    "location": "[parameters('scaleSetRegion')]",
 	    "apiVersion": "2016-04-30-preview",
 	    "dependsOn": [
 		"Microsoft.Network/virtualNetworks/myVnet"
@@ -214,7 +222,7 @@
 	    "type": "Microsoft.Insights/autoscaleSettings",
 	    "apiVersion": "2015-04-01",
 	    "name": "autoscalehost",
-	    "location": "[resourceGroup().location]",
+	    "location": "[parameters('scaleSetRegion')]",
 	    "dependsOn": [
 		"Microsoft.Compute/virtualMachineScaleSets/myScaleSet"
 	    ],
