@@ -21,8 +21,7 @@ access_token = azurerm.get_access_token(
 
 startTimestamp = str(datetime.datetime.now() - datetime.timedelta(days=1))
 
-endpoint = ''.join([azure_rm_endpoint,
-                    '/subscriptions/', subscriptionId,
+endpoint = ''.join(['https://management.azure.com/subscriptions/', subscriptionId,
                     '/providers/microsoft.insights/eventtypes/management/values?api-version=2015-04-01&$filter=eventTimestamp ge \'',
                     startTimestamp, '\''])
 res = azurerm.do_get(endpoint, access_token)
