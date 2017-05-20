@@ -1,0 +1,144 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+	"adminUsername": {
+	    "type": "string"
+	},
+	"adminPassword": {
+	    "type": "securestring"
+	},
+	"_artifactsLocation": {
+	    "type": "string",
+	    "defaultValue": "https://raw.githubusercontent.com/gatneil/templates/extensionSequencing/extensionSequencing"
+	}
+    },
+    "variables": {},
+    "resources": [
+	{
+	    "type": "Microsoft.Network/virtualNetworks",
+	    "name": "myVnet",
+	    "location": "[resourceGroup().location]",
+	    "apiVersion": "2016-12-01",
+	    "properties": {
+		"addressSpace": {
+		    "addressPrefixes": [
+			"10.0.0.0/16"
+		    ]
+		},
+		"subnets": [
+		    {
+			"name": "mySubnet",
+			"properties": {
+			    "addressPrefix": "10.0.0.0/16"
+			}
+		    }
+		]
+	    }
+	},
+	{
+	    "apiVersion": "2017-04-01",
+	    "type": "Microsoft.Network/publicIPAddresses",
+	    "name": "myPip",
+	    "location": "[resourceGroup().location]",
+	    "properties": {
+		"publicIPAllocationMethod": "Dynamic"
+	    }
+	},
+	{
+	    "apiVersion": "2017-04-01",
+	    "type": "Microsoft.Network/networkInterfaces",
+	    "name": "myNic",
+	    "location": "[resourceGroup().location]",
+	    "dependsOn": [
+		"Microsoft.Network/publicIPAddresses/myPip",
+		"Microsoft.Network/virtualNetworks/myVnet"
+	    ],
+	    "properties": {
+		"ipConfigurations": [
+		    {
+			"name": "ipconfig1",
+			"properties": {
+			    "privateIPAllocationMethod": "Dynamic",
+			    "publicIPAddress": {
+				"id": "[resourceId('Microsoft.Network/publicIPAddresses', 'myPip')]"
+			    },
+			    "subnet": {
+				"id": "[concat(resourceId('Microsoft.Network/virtualNetworks', 'myVnet'), '/subnets/mySubnet')]"
+			    }
+			}
+		    }
+		]
+	    }
+	},
+	{
+	    "type": "Microsoft.Compute/virtualMachines",
+	    "name": "myVM",
+	    "location": "[resourceGroup().location]",
+	    "apiVersion": "2016-04-30-preview",
+	    "dependsOn": [
+		"Microsoft.Network/networkInterfaces/myNic"
+	    ],
+	    "properties": {
+		"hardwareProfile": {
+		    "vmSize": "Standard_A1"
+		},
+		"storageProfile": {
+		    "imageReference": {
+			"publisher": "Canonical",
+			"offer": "UbuntuServer",
+			"sku": "16.04-LTS",
+			"version": "latest"
+		    }
+		},
+		"osProfile": {
+		    "computerName": "vm",
+		    "adminUsername": "[parameters('adminUsername')]",
+		    "adminPassword": "[parameters('adminPassword')]"
+		},
+		"networkProfile": {
+		    "networkInterfaces": [
+			{
+			    "id": "[resourceId('Microsoft.Network/networkInterfaces', 'myNic')]"
+			}
+		    ]
+		}
+	    }
+	},
+	{
+	    "type": "Microsoft.Compute/virtualMachines/extensions",
+	    "name": "myVM/dockerextension",
+	    "apiVersion": "2017-03-30",
+	    "location": "[resourceGroup().location]",
+	    "dependsOn": [
+		"Microsoft.Compute/virtualMachines/myVM"
+	    ],
+	    "properties": {
+		"publisher": "Microsoft.Azure.Extensions",
+		"type": "DockerExtension",
+		"typeHandlerVersion": "1.0",
+		"autoUpgradeMinorVersion": true,
+		"settings": {
+		    "docker":{
+			"port": "2376",
+			"options": ["-D", "--dns=8.8.8.8"]
+		    },
+		    "compose": {
+			"cache" : {
+			    "image" : "memcached",
+			    "ports" : ["11211:11211"]
+			},
+			"web": {
+			    "image": "ghost",
+			    "ports": ["80:2368"]
+			}
+		    },
+		    "compose-environment": {
+			"COMPOSE_PROJECT_NAME": "blog",
+			"COMPOSE_HTTP_TIMEOUT": "600"
+		    }
+		}
+	    }
+	}
+    ]
+}
