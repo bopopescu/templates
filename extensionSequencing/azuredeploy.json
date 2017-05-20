@@ -139,6 +139,27 @@
 		    }
 		}
 	    }
+	},
+	{
+	    "type": "Microsoft.Compute/virtualMachines/extensions",
+	    "name": "myVM/usedocker",
+	    "apiVersion": "2017-03-30",
+	    "location": "[resourceGroup().location]",
+	    "dependsOn": [
+		"[resourceId('Microsoft.Compute/virtualMachines/extensions', 'myVM', 'dockerExtension')]"
+	    ],
+	    "properties": {
+		"publisher": "Microsoft.Azure.Extensions",
+		"type": "CustomScript",
+		"typeHandlerVersion": "2.0",
+		"autoUpgradeMinorVersion": true,
+		"settings": {
+		    "fileUris": [
+			"[concat(parameters('_artifactsLocation'), '/usedocker.sh')]"
+		    ],
+		    "commandToExecute": "bash usedocker.sh"
+		}
+	    }
 	}
     ]
 }
