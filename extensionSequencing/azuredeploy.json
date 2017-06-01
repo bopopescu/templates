@@ -142,7 +142,7 @@
 	},
 	{
 	    "type": "Microsoft.Compute/virtualMachines/extensions",
-	    "name": "myVM/usedocker",
+	    "name": "myVM/succeed",
 	    "apiVersion": "2017-03-30",
 	    "location": "[resourceGroup().location]",
 	    "dependsOn": [
@@ -164,7 +164,7 @@
 	},
 	{
 	    "type": "Microsoft.Compute/virtualMachines/extensions",
-	    "name": "myVM/usedocker",
+	    "name": "myVM/fail",
 	    "apiVersion": "2017-03-30",
 	    "location": "[resourceGroup().location]",
 	    "dependsOn": [
