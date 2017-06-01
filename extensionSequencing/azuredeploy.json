@@ -158,6 +158,27 @@
 		    "fileUris": [
 			"[concat(parameters('_artifactsLocation'), '/usedocker.sh')]"
 		    ],
+		    "commandToExecute": "exit 0"
+		}
+	    }
+	},
+	{
+	    "type": "Microsoft.Compute/virtualMachines/extensions",
+	    "name": "myVM/usedocker",
+	    "apiVersion": "2017-03-30",
+	    "location": "[resourceGroup().location]",
+	    "dependsOn": [
+		"Microsoft.Compute/virtualMachines/myVM"
+	    ],
+	    "properties": {
+		"publisher": "Microsoft.OSTCExtensions",
+		"type": "CustomScriptForLinux",
+		"typeHandlerVersion": "1.5",
+		"autoUpgradeMinorVersion": true,
+		"settings": {
+		    "fileUris": [
+			"[concat(parameters('_artifactsLocation'), '/usedocker.sh')]"
+		    ],
 		    "commandToExecute": "exit 1"
 		}
 	    }
