@@ -1,187 +1,306 @@
 {
-    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json",
-    "contentVersion": "1.0.0.0",
-    "parameters": {
-	"adminUsername": {
-	    "type": "string"
-	},
-	"adminPassword": {
-	    "type": "securestring"
-	},
-	"_artifactsLocation": {
-	    "type": "string",
-	    "defaultValue": "https://raw.githubusercontent.com/gatneil/templates/extensionSequencing/extensionSequencing"
-	}
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "vmSku": {
+      "type": "string",
+      "defaultValue": "Standard_D1",
+      "metadata": {
+        "description": "Size of VMs in the VM Scale Set."
+      }
     },
-    "variables": {},
-    "resources": [
-	{
-	    "type": "Microsoft.Network/virtualNetworks",
-	    "name": "myVnet",
-	    "location": "[resourceGroup().location]",
-	    "apiVersion": "2016-12-01",
-	    "properties": {
-		"addressSpace": {
-		    "addressPrefixes": [
-			"10.0.0.0/16"
-		    ]
-		},
-		"subnets": [
-		    {
-			"name": "mySubnet",
-			"properties": {
-			    "addressPrefix": "10.0.0.0/16"
-			}
-		    }
-		]
-	    }
-	},
-	{
-	    "apiVersion": "2017-04-01",
-	    "type": "Microsoft.Network/publicIPAddresses",
-	    "name": "myPip",
-	    "location": "[resourceGroup().location]",
-	    "properties": {
-		"publicIPAllocationMethod": "Dynamic"
-	    }
-	},
-	{
-	    "apiVersion": "2017-04-01",
-	    "type": "Microsoft.Network/networkInterfaces",
-	    "name": "myNic",
-	    "location": "[resourceGroup().location]",
-	    "dependsOn": [
-		"Microsoft.Network/publicIPAddresses/myPip",
-		"Microsoft.Network/virtualNetworks/myVnet"
-	    ],
-	    "properties": {
-		"ipConfigurations": [
-		    {
-			"name": "ipconfig1",
-			"properties": {
-			    "privateIPAllocationMethod": "Dynamic",
-			    "publicIPAddress": {
-				"id": "[resourceId('Microsoft.Network/publicIPAddresses', 'myPip')]"
-			    },
-			    "subnet": {
-				"id": "[concat(resourceId('Microsoft.Network/virtualNetworks', 'myVnet'), '/subnets/mySubnet')]"
-			    }
-			}
-		    }
-		]
-	    }
-	},
-	{
-	    "type": "Microsoft.Compute/virtualMachines",
-	    "name": "myVM",
-	    "location": "[resourceGroup().location]",
-	    "apiVersion": "2016-04-30-preview",
-	    "dependsOn": [
-		"Microsoft.Network/networkInterfaces/myNic"
-	    ],
-	    "properties": {
-		"hardwareProfile": {
-		    "vmSize": "Standard_A1"
-		},
-		"storageProfile": {
-		    "imageReference": {
-			"publisher": "Canonical",
-			"offer": "UbuntuServer",
-			"sku": "16.04-LTS",
-			"version": "latest"
-		    }
-		},
-		"osProfile": {
-		    "computerName": "vm",
-		    "adminUsername": "[parameters('adminUsername')]",
-		    "adminPassword": "[parameters('adminPassword')]"
-		},
-		"networkProfile": {
-		    "networkInterfaces": [
-			{
-			    "id": "[resourceId('Microsoft.Network/networkInterfaces', 'myNic')]"
-			}
-		    ]
-		}
-	    }
-	},
-	{
-	    "type": "Microsoft.Compute/virtualMachines/extensions",
-	    "name": "myVM/dockerextension",
-	    "apiVersion": "2017-03-30",
-	    "location": "[resourceGroup().location]",
-	    "dependsOn": [
-		"[resourceId('Microsoft.Compute/virtualMachines/extensions', 'myVM', 'succeed')]"
-	    ],
-	    "properties": {
-		"publisher": "Microsoft.Azure.Extensions",
-		"type": "DockerExtension",
-		"typeHandlerVersion": "1.0",
-		"autoUpgradeMinorVersion": true,
-		"settings": {
-		    "docker":{
-			"port": "2376",
-			"options": ["-D", "--dns=8.8.8.8"]
-		    },
-		    "compose": {
-			"cache" : {
-			    "image" : "memcached",
-			    "ports" : ["11211:11211"]
-			},
-			"web": {
-			    "image": "ghost",
-			    "ports": ["80:2368"]
-			}
-		    },
-		    "compose-environment": {
-			"COMPOSE_PROJECT_NAME": "blog",
-			"COMPOSE_HTTP_TIMEOUT": "600"
-		    }
-		}
-	    }
-	},
-	{
-	    "type": "Microsoft.Compute/virtualMachines/extensions",
-	    "name": "myVM/succeed",
-	    "apiVersion": "2017-03-30",
-	    "location": "[resourceGroup().location]",
-	    "dependsOn": [
-		"Microsoft.Compute/virtualMachines/myVM"
-		
-	    ],
-	    "properties": {
-		"publisher": "Microsoft.Azure.Extensions",
-		"type": "CustomScript",
-		"typeHandlerVersion": "2.0",
-		"autoUpgradeMinorVersion": true,
-		"settings": {
-		    "fileUris": [
-			"[concat(parameters('_artifactsLocation'), '/usedocker.sh')]"
-		    ],
-		    "commandToExecute": "sleep 60 && exit 0"
-		}
-	    }
-	},
-	{
-	    "type": "Microsoft.Compute/virtualMachines/extensions",
-	    "name": "myVM/fail",
-	    "apiVersion": "2017-03-30",
-	    "location": "[resourceGroup().location]",
-	    "dependsOn": [
-		"Microsoft.Compute/virtualMachines/myVM"
-	    ],
-	    "properties": {
-		"publisher": "Microsoft.OSTCExtensions",
-		"type": "CustomScriptForLinux",
-		"typeHandlerVersion": "1.5",
-		"autoUpgradeMinorVersion": true,
-		"settings": {
-		    "fileUris": [
-			"[concat(parameters('_artifactsLocation'), '/usedocker.sh')]"
-		    ],
-		    "commandToExecute": "exit 1"
-		}
-	    }
-	}
-    ]
+    "vmssName": {
+      "type": "string",
+      "metadata": {
+        "description": "String used as a base for naming resources (9 characters or less). A hash is prepended to this string for some resources, and resource-specific information is appended."
+      },
+      "maxLength": 9
+    },
+    "instanceCount": {
+      "type": "int",
+      "metadata": {
+        "description": "Number of VM instances (100 or less)."
+      },
+      "maxValue": 100
+    },
+    "adminUsername": {
+      "type": "string",
+      "metadata": {
+        "description": "Admin username on all VMs."
+      }
+    },
+    "adminPassword": {
+      "type": "securestring",
+      "metadata": {
+        "description": "Admin password on all VMs."
+      }
+    }
+  },
+  "variables": {
+    "location": "[resourceGroup().location]",
+    "addressPrefix": "10.0.0.0/16",
+    "subnetPrefix": "10.0.0.0/24",
+    "virtualNetworkName": "[concat(parameters('vmssName'), 'vnet')]",
+    "publicIPAddressName": "[concat(parameters('vmssName'), 'pip')]",
+    "subnetName": "[concat(parameters('vmssName'), 'subnet')]",
+    "loadBalancerName": "[concat(parameters('vmssName'), 'lb')]",
+    "publicIPAddressID": "[resourceId('Microsoft.Network/publicIPAddresses',variables('publicIPAddressName'))]",
+    "lbID": "[resourceId('Microsoft.Network/loadBalancers',variables('loadBalancerName'))]",
+    "natPoolName": "[concat(parameters('vmssName'), 'natpool')]",
+    "bePoolName": "[concat(parameters('vmssName'), 'bepool')]",
+    "natStartPort": 50000,
+    "natEndPort": 50120,
+    "natBackendPort": 22,
+    "nicName": "[concat(parameters('vmssName'), 'nic')]",
+    "ipConfigName": "[concat(parameters('vmssName'), 'ipconfig')]",
+    "frontEndIPConfigID": "[concat(variables('lbID'),'/frontendIPConfigurations/loadBalancerFrontEnd')]",
+    "osType": {
+      "publisher": "Canonical",
+      "offer": "UbuntuServer",
+      "sku": "16.04-LTS",
+      "version": "latest"
+    },
+    "imageReference": "[variables('osType')]",
+    "computeApiVersion": "2016-04-30-preview",
+    "networkApiVersion": "2016-06-01",
+    "insightsApiVersion": "2015-04-01"
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Network/virtualNetworks",
+      "name": "[variables('virtualNetworkName')]",
+      "location": "[variables('location')]",
+      "apiVersion": "[variables('networkApiVersion')]",
+      "properties": {
+        "addressSpace": {
+          "addressPrefixes": [
+            "[variables('addressPrefix')]"
+          ]
+        },
+        "subnets": [
+          {
+            "name": "[variables('subnetName')]",
+            "properties": {
+              "addressPrefix": "[variables('subnetPrefix')]"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "Microsoft.Network/publicIPAddresses",
+      "name": "[variables('publicIPAddressName')]",
+      "location": "[variables('location')]",
+      "apiVersion": "[variables('networkApiVersion')]",
+      "properties": {
+        "publicIPAllocationMethod": "Dynamic",
+        "dnsSettings": {
+          "domainNameLabel": "[parameters('vmssName')]"
+        }
+      }
+    },
+    {
+      "type": "Microsoft.Network/loadBalancers",
+      "name": "[variables('loadBalancerName')]",
+      "location": "[variables('location')]",
+      "apiVersion": "[variables('networkApiVersion')]",
+      "dependsOn": [
+        "[concat('Microsoft.Network/publicIPAddresses/', variables('publicIPAddressName'))]"
+      ],
+      "properties": {
+        "frontendIPConfigurations": [
+          {
+            "name": "LoadBalancerFrontEnd",
+            "properties": {
+              "publicIPAddress": {
+                "id": "[variables('publicIPAddressID')]"
+              }
+            }
+          }
+        ],
+        "backendAddressPools": [
+          {
+            "name": "[variables('bePoolName')]"
+          }
+        ],
+        "inboundNatPools": [
+          {
+            "name": "[variables('natPoolName')]",
+            "properties": {
+              "frontendIPConfiguration": {
+                "id": "[variables('frontEndIPConfigID')]"
+              },
+              "protocol": "tcp",
+              "frontendPortRangeStart": "[variables('natStartPort')]",
+              "frontendPortRangeEnd": "[variables('natEndPort')]",
+              "backendPort": "[variables('natBackendPort')]"
+            }
+          },
+          {
+            "name": "natpool2",
+            "properties": {
+              "frontendIPConfiguration": {
+                "id": "[variables('frontEndIPConfigID')]"
+              },
+              "protocol": "tcp",
+              "frontendPortRangeStart": "9000",
+              "frontendPortRangeEnd": "9120",
+              "backendPort": "9000"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "Microsoft.Compute/virtualMachineScaleSets",
+      "name": "[parameters('vmssName')]",
+      "location": "[variables('location')]",
+      "apiVersion": "[variables('computeApiVersion')]",
+      "dependsOn": [
+        "[concat('Microsoft.Network/loadBalancers/', variables('loadBalancerName'))]",
+        "[concat('Microsoft.Network/virtualNetworks/', variables('virtualNetworkName'))]"
+      ],
+      "sku": {
+        "name": "[parameters('vmSku')]",
+        "tier": "Standard",
+        "capacity": "[parameters('instanceCount')]"
+      },
+      "properties": {
+        "overprovision": "false",
+        "upgradePolicy": {
+          "mode": "Manual"
+        },
+        "virtualMachineProfile": {
+          "storageProfile": {
+            "osDisk": {
+              "createOption": "FromImage"
+            },
+            "imageReference": "[variables('imageReference')]"
+          },
+          "osProfile": {
+            "computerNamePrefix": "[parameters('vmssName')]",
+            "adminUsername": "[parameters('adminUsername')]",
+            "adminPassword": "[parameters('adminPassword')]"
+          },
+          "networkProfile": {
+            "networkInterfaceConfigurations": [
+              {
+                "name": "[variables('nicName')]",
+                "properties": {
+                  "primary": "true",
+                  "ipConfigurations": [
+                    {
+                      "name": "[variables('ipConfigName')]",
+                      "properties": {
+                        "subnet": {
+                          "id": "[concat('/subscriptions/', subscription().subscriptionId,'/resourceGroups/', resourceGroup().name, '/providers/Microsoft.Network/virtualNetworks/', variables('virtualNetworkName'), '/subnets/', variables('subnetName'))]"
+                        },
+                        "loadBalancerBackendAddressPools": [
+                          {
+                            "id": "[concat('/subscriptions/', subscription().subscriptionId,'/resourceGroups/', resourceGroup().name, '/providers/Microsoft.Network/loadBalancers/', variables('loadBalancerName'), '/backendAddressPools/', variables('bePoolName'))]"
+                          }
+                        ],
+                        "loadBalancerInboundNatPools": [
+                          {
+                            "id": "[concat('/subscriptions/', subscription().subscriptionId,'/resourceGroups/', resourceGroup().name, '/providers/Microsoft.Network/loadBalancers/', variables('loadBalancerName'), '/inboundNatPools/', variables('natPoolName'))]"
+                          },
+                          {
+                            "id": "[concat('/subscriptions/', subscription().subscriptionId,'/resourceGroups/', resourceGroup().name, '/providers/Microsoft.Network/loadBalancers/', variables('loadBalancerName'), '/inboundNatPools/natpool2')]"
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "extensionProfile": {
+            "extensions": [
+              {
+                "name": "lapextension",
+                "properties": {
+                  "publisher": "Microsoft.Azure.Extensions",
+                  "type": "CustomScript",
+                  "typeHandlerVersion": "2.0",
+                  "autoUpgradeMinorVersion": true,
+                  "settings": {
+                    "fileUris": [
+                      "https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/201-vmss-bottle-autoscale/installserver.sh",
+                      "https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/201-vmss-bottle-autoscale/workserver.py"
+                    ],
+                    "commandToExecute": "exit 1"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "type": "Microsoft.Insights/autoscaleSettings",
+      "apiVersion": "[variables('insightsApiVersion')]",
+      "name": "autoscalehost",
+      "location": "[variables('location')]",
+      "dependsOn": [
+        "[concat('Microsoft.Compute/virtualMachineScaleSets/', parameters('vmSSName'))]"
+      ],
+      "properties": {
+        "name": "autoscalehost",
+        "targetResourceUri": "[concat('/subscriptions/',subscription().subscriptionId, '/resourceGroups/',  resourceGroup().name, '/providers/Microsoft.Compute/virtualMachineScaleSets/', parameters('vmSSName'))]",
+        "enabled": true,
+        "profiles": [
+          {
+            "name": "Profile1",
+            "capacity": {
+              "minimum": "1",
+              "maximum": "10",
+              "default": "1"
+            },
+            "rules": [
+              {
+                "metricTrigger": {
+                  "metricName": "Percentage CPU",
+                  "metricNamespace": "",
+                  "metricResourceUri": "[concat('/subscriptions/',subscription().subscriptionId, '/resourceGroups/',  resourceGroup().name, '/providers/Microsoft.Compute/virtualMachineScaleSets/', parameters('vmSSName'))]",
+                  "timeGrain": "PT1M",
+                  "statistic": "Average",
+                  "timeWindow": "PT5M",
+                  "timeAggregation": "Average",
+                  "operator": "GreaterThan",
+                  "threshold": 60.0
+                },
+                "scaleAction": {
+                  "direction": "Increase",
+                  "type": "ChangeCount",
+                  "value": "1",
+                  "cooldown": "PT1M"
+                }
+              },
+              {
+                "metricTrigger": {
+                  "metricName": "Percentage CPU",
+                  "metricNamespace": "",
+                  "metricResourceUri": "[concat('/subscriptions/',subscription().subscriptionId, '/resourceGroups/',  resourceGroup().name, '/providers/Microsoft.Compute/virtualMachineScaleSets/', parameters('vmSSName'))]",
+                  "timeGrain": "PT1M",
+                  "statistic": "Average",
+                  "timeWindow": "PT5M",
+                  "timeAggregation": "Average",
+                  "operator": "LessThan",
+                  "threshold": 30.0
+                },
+                "scaleAction": {
+                  "direction": "Decrease",
+                  "type": "ChangeCount",
+                  "value": "1",
+                  "cooldown": "PT1M"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
 }
