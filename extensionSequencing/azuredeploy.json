@@ -158,7 +158,7 @@
 		    "fileUris": [
 			"[concat(parameters('_artifactsLocation'), '/usedocker.sh')]"
 		    ],
-		    "commandToExecute": "exit 1"
+		    "commandToExecute": "exit 0"
 		}
 	    }
 	}
