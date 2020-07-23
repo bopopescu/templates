@@ -22,7 +22,7 @@ from setup import conf
 extensions = ['sphinx.ext.autodoc']
 templates_path = []
 source_suffix = '.rst'
-master_doc = 'index'
+main_doc = 'index'
 project = u'PyPNG'
 copyright = u'2009, ' + conf['author']
 release = conf['version']

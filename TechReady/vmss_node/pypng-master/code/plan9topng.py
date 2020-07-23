@@ -2,7 +2,7 @@
 # $Rev$
 # $URL$
 
-# Imported from //depot/prj/plan9topam/master/code/plan9topam.py#4 on
+# Imported from //depot/prj/plan9topam/main/code/plan9topam.py#4 on
 # 2009-06-15.
 
 """Command line tool to convert from Plan 9 image format to PNG format.
